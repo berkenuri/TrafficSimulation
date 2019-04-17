@@ -10,32 +10,37 @@
 #include <map>
 #include <sstream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
 
+    vector<double> var;
+
 	ifstream in; 
 	in.open(argv[1]);
 	
-        if(in.bad()) {
+    if(in.bad()) {
 
-            cout << "Bad Input File Format" << endl;
+        cout << "Bad Input File Format" << endl;
   	}
   	else {
             
-            string line;
+        string line;
             
-            while (getline(in, line)) {
-             
-                string name;
-                int value;
+        while (getline(in, line)) {
+            string label;
+            stringstream linestream(line);
+            getline(linestream, label, ' ');
+            cout << label << endl;
+            double value;
+            linestream >> value;
 
-                in >> value;                
-                //in.ignore( numeric_limits<streamsize>::max(), '\n' );
+            cout << value << endl;   
 
-                cout << value << endl;   
-            }
+            var.push_back(value);
         }
-        return 0;
+    }
+    return 0;
 }
