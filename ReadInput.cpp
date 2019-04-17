@@ -1,4 +1,10 @@
-#ifndef _READINPUT_CPP__
-#define _READINPUT_CPP__
+#include "ReadInput.h"
+#include <sstream>
 
-#endif
+ReadInput::readInteger(string line) {
+
+    sstream in;
+
+    
+
+}

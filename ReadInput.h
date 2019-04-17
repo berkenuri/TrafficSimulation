@@ -3,6 +3,12 @@
 
 class ReadInput {
 
+    private:
+
+
+    public:
+        int readInteger(string line);
+
 };
 
 #endif 
