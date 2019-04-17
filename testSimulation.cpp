@@ -7,10 +7,11 @@
 
 #include <iostream>
 #include <fstream>
-#include <map>
+#include <cctype>
 #include <sstream>
 #include <string>
 #include <vector>
+#include <array>
 
 using namespace std;
 
