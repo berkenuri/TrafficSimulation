@@ -7,9 +7,10 @@
 
 #include <iostream>
 #include <fstream>
-#include <map>
+#include <cctype>
 #include <sstream>
 #include <string>
+#include <array>
 
 using namespace std;
 
@@ -25,16 +26,29 @@ int main(int argc, char *argv[]) {
   	else {
             
             string line;
+            array<int, 18> myInts;
+            string temp;
+            int j = 0;
             
             while (getline(in, line)) {
-             
-                string name;
-                int value;
 
-                in >> value;                
-                //in.ignore( numeric_limits<streamsize>::max(), '\n' );
+            	for(int i = 0; i < line.size(); i++) {
+            		if(line[i].isdigit()) {
+            			temp += line[i];
+            		}
+            	}
 
-                cout << value << endl;   
+            	array[j] = atoi(temp);
+
+            	j++;
+         
+                // string name;
+                // int value;
+
+                // in >> value;                
+                // //in.ignore( numeric_limits<streamsize>::max(), '\n' );
+
+                // cout << value << endl;   
             }
         }
         return 0;
