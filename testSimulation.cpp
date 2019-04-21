@@ -83,9 +83,9 @@ int main(int argc, char *argv[]) {
         // create instance of lanes
 
         // create instance of traffic light
-        // TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south);
+        // TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, NORTH_SOUTH);
         // TrafficLight *southLight = new TrafficLight(northLight);
-        // TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west);
+        // TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, EAST_WEST);
         // TrafficLight *westLight = new TrafficLight(eastLight);
 
         int initialSeed = 8675309;
@@ -97,10 +97,10 @@ int main(int argc, char *argv[]) {
         // This while loop will execute until time runs out (the current time is equal to the maximum simulated time)
         while(t < maximum_simulated_time){
 
-        	// northLight->update();
-        	// southLight->update(); 
-        	// eastLight->update();
-        	// westLight->update()
+        	// northLight->updateState(t);
+        	// southLight->updateState(t); 
+        	// eastLight->updateState(t);
+        	// westLight->updateState(t)
 
         	//double newVehicle = rand_double(generator);
         	double newVehicle = 0;
@@ -116,7 +116,6 @@ int main(int argc, char *argv[]) {
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
         		// new Vehicle westbound
         	}
-
 
         	t++;
         }
