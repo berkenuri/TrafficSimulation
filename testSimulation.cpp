@@ -27,6 +27,7 @@ int main(int argc, char *argv[]) {
     if(in.bad()) {
 
         cout << "Bad Input File Format" << endl;
+        return -1; 
   	}
   	else {
             
@@ -48,5 +49,7 @@ int main(int argc, char *argv[]) {
             var.push_back(value);
         }
     }
+
+
     return 0;
 }
