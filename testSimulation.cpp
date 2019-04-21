@@ -33,16 +33,16 @@ int main(int argc, char *argv[]) {
         string line;
             
         // While there is another line of input to read
-        while (getline(in, line)) {
+        while (getline(in, line)) {          
             string label;
-            stringstream linestream(line);
+            stringstream linestream(line);            
             // Read the label, which is the whitespace after the ':'
             getline(linestream, label, ' ');
-            cout << label << endl;
-            double value;
+            cout << label << endl;           
+            double value;            
             // Read the double at the end of the input line
             linestream >> value;
-
+            
             cout << value << endl;   
 
             var.push_back(value);
