@@ -28,11 +28,4 @@ TrafficLight::TrafficLight(const TrafficLight& other){
 TrafficLight::~TrafficLight(){
 	// Destructor
 }
-
-
-
-
-
-
-
 #endif

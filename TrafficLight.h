@@ -3,14 +3,19 @@
 
 using namespace std;
 
-enum class Color { green, yellow, red };
+enum class Color { GREEN, YELLOW, RED, DEFAULT };
 
 class TrafficLight {
 
     public:
 
+        // Default constructor 
         TrafficLight();
+        // Creates an instance of TrafficLigth with pass by value arguments
+        TrafficLight(int green, int yellow, int red, Color currentState);
+        // Copy constructor
         TrafficLight(const TrafficLight& other);
+        // Destructor 
         ~TrafficLight();
 
         Color getColor();
@@ -22,7 +27,8 @@ class TrafficLight {
         int gLength;
         int yLength;
         int rLength;
-        int remaining;        
+        Color currentState;
+        //int remaining;        
 
 };
 
