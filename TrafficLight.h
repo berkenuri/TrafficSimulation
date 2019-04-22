@@ -1,6 +1,8 @@
 #ifndef _TRAFFICLIGHT_H__
 #define _TRAFFICLIGHT_H__
 
+#include <iostream>
+
 using namespace std;
 
 enum class Color { green, yellow, red, defaultColor };

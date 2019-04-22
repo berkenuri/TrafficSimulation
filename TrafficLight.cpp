@@ -48,6 +48,9 @@ void TrafficLight::updateState(int time){
 				currentState = Color::green;
 			}
 			else if(currentTime >= gLength && currentTime < halfCycle){
+				cout << "halfCycle: " << halfCycle << endl;
+				cout << "cycleTime: " << cycleTime << endl;
+				cout << "currentTime: " << currentTime << endl;
 				currentState = Color::yellow;
 			}
 			else if(currentTime >= halfCycle && currentTime < cycleTime){
