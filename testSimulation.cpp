@@ -12,12 +12,13 @@
 #include <string>
 #include <vector>
 #include <array>
+#include <random>
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
 
-	ifstream in; 
+ 	ifstream in; 
 	in.open(argv[1]);
 	
     // If input file format is incorrect, let the user know 
@@ -48,17 +49,21 @@ int main(int argc, char *argv[]) {
             var.push_back(value);
         }
 
-        // Assign values read from input to local variables 
+        // Assign values read from input to local variables within the scope of the else statement
         int maximum_simulated_time = var[0];
         int number_of_sections_before_intersection = var[1];
         int green_north_south = var[2];
         int yellow_north_south = var[3];
         int green_east_west = var[4];
         int yellow_east_west = var[5];
+        // The north and south bound lanes will experience a red light when the east and west 
+        // lanes have green or yellow signals
         int red_north_south = green_east_west + yellow_east_west;
+        // The east and west bound lanes will experience a red light when the north and south 
+        // lanes have green or yellow signals
         int red_east_west = green_north_south + yellow_north_south;
-        int prob_new_vehicle_northbound = var[6];
-        int prob_new_vehicle_southbound = var[7];
+        double prob_new_vehicle_northbound = var[6];
+        double prob_new_vehicle_southbound = var[7];
         double prob_new_vehicle_eastbound = var[8];
         double prob_new_vehicle_westbound = var[9];
         double proportion_of_cars = var[10];
@@ -69,10 +74,51 @@ int main(int argc, char *argv[]) {
         double prob_left_turn_SUVs = var[15];
         double prob_right_turn_trucks = var[16];
         double prob_left_turn_trucks = var[17];
+
+        // t will represent current time
+        int t = 0;
+
+        // create instance of the road
+
+        // create instance of lanes
+
+        // create instance of traffic light
+        // TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, NORTH_SOUTH);
+        // TrafficLight *southLight = new TrafficLight(northLight);
+        // TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, EAST_WEST);
+        // TrafficLight *westLight = new TrafficLight(eastLight);
+
+        int initialSeed = 8675309;
+        // Creating an instance of the Mersenne Twister 19937 Generator
+        //mt19937 generator (initialSeed); 
+        // Floating point type between 0.0 and 1.1
+        //uniform_real_distribution<double> rand_double(0.0, 1.0);
+
+        // This while loop will execute until time runs out (the current time is equal to the maximum simulated time)
+        while(t < maximum_simulated_time){
+
+        	// northLight->updateState(t);
+        	// southLight->updateState(t); 
+        	// eastLight->updateState(t);
+        	// westLight->updateState(t)
+
+        	//double newVehicle = rand_double(generator);
+        	double newVehicle = 0;
+        	if(newVehicle >=  0.0 && newVehicle < prob_new_vehicle_northbound){
+        		// new Vehicle northbound
+        	}
+        	else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
+        		// new Vehicle southbound
+        	}
+        	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
+        		// new Vehicle eastbound
+        	}
+        	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
+        		// new Vehicle westbound
+        	}
+
+        	t++;
+        }
     }
-
-
-
-
     return 0;
 }
