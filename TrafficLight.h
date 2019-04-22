@@ -3,9 +3,9 @@
 
 using namespace std;
 
-enum class Color { GREEN, YELLOW, RED, DEFAULT };
+enum class Color { green, yellow, red, defaultColor };
 
-enum class Direction { NORTH_SOUTH, EAST_WEST, DEFAULT };
+enum class Direction { north_south, east_west, defaultDirection };
 
 class TrafficLight {
 
