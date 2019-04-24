@@ -83,9 +83,12 @@ int main(int argc, char *argv[]) {
         // create instance of lanes
 
         // Create four instances of TrafficLight for each lane/direction
-         TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, Color::defaultColor, Direction::north_south);
+
+        // North and south lanes will alwyas start with green 
+         TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, Color::green, Direction::north_south);
          TrafficLight *southLight = new TrafficLight(*northLight);
-         TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::defaultColor, Direction::east_west);
+         // East and west lanes will always start with red
+         TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::red, Direction::east_west);
          TrafficLight *westLight = new TrafficLight(*eastLight);
 
         int initialSeed = 8675309;
@@ -101,6 +104,8 @@ int main(int argc, char *argv[]) {
         	 southLight->updateState(t); 
         	 eastLight->updateState(t);
         	 westLight->updateState(t);
+
+        	cout << "time remaining " << eastLight->getTimeRemaining(t) << endl;
 
         	double newVehicle = rand_double(generator);
         	//double newVehicle = 0.0;

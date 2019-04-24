@@ -5,9 +5,9 @@
 
 using namespace std;
 
-enum class Color { green, yellow, red, defaultColor };
+enum class Color { green, yellow, red, defaultColor }; // Have a deafultColor for the default constructor
 
-enum class Direction { north_south, east_west, defaultDirection };
+enum class Direction { north_south, east_west, defaultDirection }; // Have a defaultDirection for the default constructor
 
 class TrafficLight {
 
