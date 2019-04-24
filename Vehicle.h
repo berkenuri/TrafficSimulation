@@ -1,5 +1,5 @@
-#ifndef _VEHICLE_H__
-#define _VEHICLE_H__
+#ifndef __VEHICLE_H__
+#define __VEHICLE_H__
 
 #include <vector>
 
@@ -27,9 +27,10 @@ class Vehicle {
         
         Vehicle(const Vehicle& other);
        
-        Vehicle(VehicleType vehicleName, int vehicleSize, 
+        Vehicle(VehicleType vehicleName, 
                 int frontX, int frontY, 
-                int backX, int backY, Direction moveDirection); 
+                int backX, int backY, 
+                Direction moveDirection); 
         
         ~Vehicle();
 

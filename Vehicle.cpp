@@ -1,5 +1,5 @@
-#ifndef _VEHICLE_CPP__
-#define _VEHICLE_CPP__
+#ifndef __VEHICLE_CPP__
+#define __VEHICLE_CPP__
 
 #include "Vehicle.h"
 
@@ -18,12 +18,22 @@ Vehicle::Vehicle(const Vehicle& other) {
     direction = other.direction;
 }
 
-Vehicle::Vehicle(VehicleType vehicleName, int vehicleSize, 
+Vehicle::Vehicle(VehicleType vehicleName, 
                 int frontX, int frontY, 
-                int backX, int backY, Direction moveDirection) {
+                int backX, int backY, 
+                Direction moveDirection) {
 
     name = vehicleName;
-    size = vehicleSize;
+    
+    if (vehicleName == VehicleType::car) 
+        size = 2;
+    else if (vehicleName == VehicleType::suv)
+        size = 3;
+    else if (vehicleName == VehicleType::truck)
+        size = 4;
+    else
+        size = 0;
+
     frontXPos = frontX;
     frontYPos = frontY;
     backXPos = backX;
