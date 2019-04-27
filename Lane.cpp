@@ -21,7 +21,7 @@ Lane::Lane(TrafficLight light, int length)
 bool Lane::isSpace()
 {
 	// Gets last vehicle in lane
-	last_vehicle = *lane.back();
+	Vehicle last_vehicle = lane.back();
 	dir = last_vehicle.getDirection();
 	// Checks if last vehicle occupies the last position in the lane.
 	// It does this by checking the coordinates of the last vehicle.
@@ -91,9 +91,10 @@ void Lane::removeVehicle()
 bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 {
 	int size = v.getSize();
+	int tn = 0;
 	// Determines the number of time steps needed to 
 	// make it through the intersection
-	if (v.isRightTurn())
+	if (v.turnsRight())
 	{
 		tn = size + 1;
 	}
@@ -105,7 +106,7 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 	// light changes to go through the intersection
 	if (light.getColor() == "Yellow")
 	{
-		if(tn < light.getRemaining(t))
+		if(tn < light.getTimeRemaining(t))
 		{
 			return false;
 		}
@@ -114,7 +115,7 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 	// yellow plus the time that the light will be yellow
 	else if (light.getColor() == "Green")
 	{
-		if (tn < light.getRemaining(t) + tyellow)
+		if (tn < light.getTimeRemaining(t) + tyellow)
 		{
 			return false;
 		}

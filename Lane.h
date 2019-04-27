@@ -12,7 +12,7 @@ class Lane {
 		TrafficLight light;
 		vector<Vehicle> lane;
 		int length;
-		bool isSpace()
+		bool isSpace();
 	public:
 		Lane(TrafficLight light, int length);
 		~Lane();
