@@ -1,11 +1,10 @@
 #ifndef _LANE_H__
 #define _LANE_H__
+
 #include "TrafficLight.h"
 #include "Vehicle.h"
 
 using namespace std;
-#include <vector>
-
 
 class Lane {
 	private:
