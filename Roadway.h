@@ -2,6 +2,7 @@
 #define _ROADWAY_H__
 using namespace std;
 #include "Lane.h"
+#include "TrafficLight.h"
 
 class Roadway {
 	private:
@@ -13,7 +14,6 @@ class Roadway {
 	public:
 		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
 		bool isIntersection();
-		bool crossSafely();
 		void goStraight();
 		void turnRight();
 		bool safeToMove();
