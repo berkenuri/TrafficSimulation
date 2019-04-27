@@ -84,7 +84,9 @@ int main(int argc, char *argv[]) {
          TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::red, TrafficLightDirection::east_west);
          TrafficLight *westLight = new TrafficLight(*eastLight);
 
-         // Create an instance of Roadway that will 
+         // Create an instance of Roadway that will internally create four instances of Lane
+
+         Roadway *road = new Roadway(*northLight, *eastLight, number_of_sections_before_intersection);
 
         int initialSeed = 8675309;
         // Creating an instance of the Mersenne Twister 19937 Generator
