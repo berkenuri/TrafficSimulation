@@ -9,10 +9,11 @@ using namespace std;
 class Lane {
 	private:
 		TrafficLight light;
-		vector<Vehicle> lane;
 		int length;
 		bool isSpace();
 	public:
+		vector<Vehicle> lane;
+		
 		Lane(TrafficLight light, int length);
 		~Lane();
 		void addVehicle(Vehicle v);

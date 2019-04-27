@@ -5,13 +5,12 @@ using namespace std;
 #include "TrafficLight.h"
 
 class Roadway {
-	private:
+	public:
 		Lane *northbound;
 		Lane *southbound;
 		Lane *eastbound;
 		Lane *westbound;
 
-	public:
 		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
 		bool isIntersection();
 		void goStraight();
