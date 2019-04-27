@@ -21,28 +21,27 @@ Lane::Lane(TrafficLight light, int length)
 bool Lane::isSpace()
 {
 	// Gets last vehicle in lane
-	last_vehicle = *lane.back();
-	dir = last_vehicle.getDirection();
+	Vehicle last_vehicle = lane.back();
 	// Checks if last vehicle occupies the last position in the lane.
 	// It does this by checking the coordinates of the last vehicle.
-	switch(dir)
+	switch(last_vehicle.getDirection())
 	{
-		case Direction::north
+		case Direction::north:
 			if (last_vehicle.getBackYPos() <= 0)
 			{
 				return false;
 			}
-		case Direction::south
+		case Direction::south:
 			if (last_vehicle.getBackYPos() >= length*2 + 2)
 			{
 				return false;
 			}
-		case Direction::east
+		case Direction::east:
 			if (last_vehicle.getBackXPos() <= 0)
 			{
 				return false;
 			}
-		case Direction::west
+		case Direction::west:
 			if (last_vehicle.getBackXPos() >= length*2 + 2)
 			{
 				return false;
