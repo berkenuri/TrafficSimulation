@@ -3,19 +3,20 @@
 #include "TrafficLight.h"
 #include "Vehicle.h"
 using namespace std;
-#include <vector>;
+#include <vector>
 
 class Lane {
 	private:
 		TrafficLight light;
-		vector<Vehicle> lane;
+		vector<Vehicle*> lane;
 		int length;
+		bool isSpace()
 	public:
 		Lane(TrafficLight light, int length);
-		void addVehicle();
-		bool isSpace();
+		~Lane();
+		void addVehicle(Vehicle* v);
 		void removeVehicle();
-
+		bool crossSafely(Vehicle v);
 };
 
 #endif
