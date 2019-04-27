@@ -28,33 +28,25 @@ bool Lane::isSpace()
 	switch(dir)
 	{
 		case Direction::north
-		{
 			if (last_vehicle.getBackYPos() <= 0)
 			{
 				return false;
 			}
-		}
 		case Direction::south
-		{
 			if (last_vehicle.getBackYPos() >= length*2 + 2)
 			{
 				return false;
 			}
-		}
 		case Direction::east
-		{
 			if (last_vehicle.getBackXPos() <= 0)
 			{
 				return false;
 			}
-		}
 		case Direction::west
-		{
 			if (last_vehicle.getBackXPos() >= length*2 + 2)
 			{
 				return false;
 			}
-		}
 	}
 	return true;
 }

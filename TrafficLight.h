@@ -37,7 +37,7 @@ class TrafficLight {
         int rLength;                // The length of time where the TrafficLight is red in one cycle
         int cycleTime;              // The length of one traffic cycle: where green, yellow and red each occurs once
         Color currentState;         // The Color that the TrafficLight currently is
-        TrafficLightDirection myDirection;      // The direction of traffic that the TrafficLight is assigned to   
+        Direction myDirection;      // The direction of traffic that the TrafficLight is assigned to   
 };
 
 #endif
