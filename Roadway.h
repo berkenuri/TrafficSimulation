@@ -11,6 +11,7 @@ class Roadway {
 		Lane westbound;
 
 	public:
+		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
 		bool isIntersection();
 		bool crossSafely();
 		void goStraight();
