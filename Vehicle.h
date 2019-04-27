@@ -66,6 +66,9 @@ class Vehicle {
         // returns true if the vehicle is going to turn right in the intersection
         bool turnsRight();
 
+        //returns the direction of the vehicle 
+        Direction getDirection();
+
     private:
 
         // data fields of the vehicle

@@ -155,5 +155,11 @@ void Vehicle::go() {
     }
 }
 
+// returns the direction of the vehicle 
+Direction Vehicle::getDirection() {
+
+    return direction;
+}
+
 
 #endif 
