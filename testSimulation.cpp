@@ -106,52 +106,26 @@ int main(int argc, char *argv[]) {
         	
         	if(newVehicle >=  0.0 && newVehicle < prob_new_vehicle_northbound){
         		// Create a new Vehicle northbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north, false);
         	}
         	else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
         		// Create a new Vehicle southbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::south);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::south, false);
 
         	}
         	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
         		// Create a new Vehicle eastbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::east);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::east, false);
         	}
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
         		// Create a new Vehicle westbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::west);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::west, false);
         	}
 
         	t++;
         }
 
-        // testing Vehicle class
-        /* 
-        Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north);
-        cout << car.getFrontXPos() << " [10] " << endl;
-        cout << car.getFrontYPos() << " [9] " << endl;
-        cout << car.getBackXPos() << " [10] " << endl;
-        cout << car.getBackYPos() << " [7] " <<  endl;
-        cout << car.getSize() << " [2] " << endl;
-
-        vector<int> frontPos = car.getFrontPos();
-
-        for(int i = 0; i < frontPos.size(); i++) {
-
-            cout << frontPos[i] << endl;
-        }
-
-
-        car.setBackPos(4, 3);
-
-        vector<int> backPos = car.getBackPos();
-
-        for(int i = 0; i < backPos.size(); i++) {
-
-            cout << backPos[i] << endl;
-        }
-        */
-
+        
     }
     return 0;
 }

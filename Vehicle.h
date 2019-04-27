@@ -30,7 +30,7 @@ class Vehicle {
         Vehicle(VehicleType vehicleName, 
                 int frontX, int frontY, 
                 int backX, int backY, 
-                Direction moveDirection); 
+                Direction moveDirection, bool rightTurn); 
         
         ~Vehicle();
 
@@ -51,6 +51,8 @@ class Vehicle {
 
         void go();
 
+        bool turnsRight();
+
     private:
 
         VehicleType name;
@@ -60,6 +62,7 @@ class Vehicle {
         int backXPos;
         int backYPos;
         Direction direction;
+        bool turnRight;
         
 
 
