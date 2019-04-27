@@ -63,6 +63,9 @@ class Vehicle {
         // makes the vehicle move one unit to the direction it is supposed to advance
         void go();
 
+        // turns the vehicle to the right
+        void turnRight();
+
         // returns true if the vehicle is going to turn right in the intersection
         bool turnsRight();
 
@@ -79,7 +82,7 @@ class Vehicle {
         int backXPos;
         int backYPos;
         Direction direction;
-        bool turnRight;
+        bool willTurnRight;
         
 
 
