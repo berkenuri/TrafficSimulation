@@ -6,10 +6,10 @@ using namespace std;
 
 class Roadway {
 	private:
-		Lane northbound;
-		Lane southbound;
-		Lane eastbound;
-		Lane westbound;
+		Lane *northbound;
+		Lane *southbound;
+		Lane *eastbound;
+		Lane *westbound;
 
 	public:
 		Roadway(TrafficLight lightns, TrafficLight lightew, int length);

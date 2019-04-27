@@ -96,7 +96,7 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 	}
 	// If the light is yellow, the vehicle has until the 
 	// light changes to go through the intersection
-	if (light.getColor() == "Yellow")
+	if (light.getColor() == Color::yellow)
 	{
 		if(tn < light.getTimeRemaining(t))
 		{
@@ -105,7 +105,7 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 	}
 	// If the light is green, the vehicle has until the light turns 
 	// yellow plus the time that the light will be yellow
-	else if (light.getColor() == "Green")
+	else if (light.getColor() == Color::green)
 	{
 		if (tn < light.getTimeRemaining(t) + tyellow)
 		{

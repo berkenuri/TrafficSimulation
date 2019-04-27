@@ -4,9 +4,9 @@ using namespace std;
 
 Roadway::Roadway(TrafficLight lightns, TrafficLight lightew, int length)
 {
-	northbound = Lane(lightns, length);
-	southbound = Lane(lightns, length);
-	eastbound = Lane(lightew, length);
-	westbound = Lane(lightew, length);
+	northbound = new Lane(lightns, length);
+	southbound = new Lane(lightns, length);
+	eastbound = new Lane(lightew, length);
+	westbound = new Lane(lightew, length);
 }
 
