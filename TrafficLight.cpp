@@ -6,11 +6,11 @@ TrafficLight::TrafficLight(){
 	yLength = -1;
 	rLength = -1;
 	currentState = Color::defaultColor;
-	myDirection = Direction::defaultDirection;
+	myDirection = TrafficLightDirection::defaultDirection;
 	cycleTime = -1;
 }
 
-TrafficLight::TrafficLight(int green, int yellow, int red, Color state, Direction direct){
+TrafficLight::TrafficLight(int green, int yellow, int red, Color state, TrafficLightDirection direct){
 	// Creates an instance of TrafficLigth with pass by value arguments
 	gLength = green;
 	yLength = yellow;
@@ -45,7 +45,7 @@ void TrafficLight::updateState(int time){
 	int currentTime = time % cycleTime;
 
 	switch(myDirection){
-		case Direction::north_south:
+		case TrafficLightDirection::north_south:
 		// In the case that the traffic light being updated is for the north or south lanes
 			if(currentTime >= 0 && currentTime < gLength){
 				// The north/south lanes first have a green ligth
@@ -59,7 +59,7 @@ void TrafficLight::updateState(int time){
 				currentState = Color::red;
 			}
 			break;
-		case Direction::east_west: 
+		case TrafficLightDirection::east_west: 
 		// In the case that the traffic light being updated is for the east or west lanes
 			if(currentTime >= rLength + gLength && currentTime < cycleTime){
 				currentState = Color::yellow;
@@ -74,7 +74,7 @@ void TrafficLight::updateState(int time){
 				cout << "east_west red" << endl;
 			}
 				break;
-		case Direction::defaultDirection:
+		case TrafficLightDirection::defaultDirection:
 		// Do nothing
 			break;
 	}
@@ -86,7 +86,7 @@ int TrafficLight::getTimeRemaining(int time){
 	int currentTime = time % cycleTime;
 
 	switch(myDirection){
-		case Direction::north_south:
+		case TrafficLightDirection::north_south:
 			if(currentState == Color::green){
 				return gLength - 1 - currentTime;
 			}
@@ -96,7 +96,7 @@ int TrafficLight::getTimeRemaining(int time){
 			else if(currentState == Color::red){
 				return cycleTime - 1 - currentTime;
 			}
-		case Direction::east_west:
+		case TrafficLightDirection::east_west:
 			if(currentState == Color::green){
 				return rLength + gLength - 1 - currentTime;
 			}
@@ -106,7 +106,7 @@ int TrafficLight::getTimeRemaining(int time){
 			else if(currentState == Color::red){
 				return gLength + yLength - 1 - currentTime;
 			}
-		case Direction::defaultDirection:
+		case TrafficLightDirection::defaultDirection:
 		// Return -1 to indicate a instance of TrafficLight that used the default constructor
 			return -1;
 	}
