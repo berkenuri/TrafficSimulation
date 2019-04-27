@@ -12,7 +12,7 @@ class Roadway {
 		Lane westbound;
 
 	public:
-		Roadway(TrafficLight ns, TrafficLight ew, int length);
+		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
 		bool isIntersection();
 		void goStraight();
 		void turnRight();
