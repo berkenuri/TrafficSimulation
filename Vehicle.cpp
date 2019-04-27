@@ -16,12 +16,13 @@ Vehicle::Vehicle(const Vehicle& other) {
     backXPos = other.backXPos;
     backYPos = other.backYPos;
     direction = other.direction;
+    turnsRight = other.turnsRight;
 }
 
 Vehicle::Vehicle(VehicleType vehicleName, 
                 int frontX, int frontY, 
                 int backX, int backY, 
-                Direction moveDirection) {
+                Direction moveDirection, bool turnRight) {
 
     name = vehicleName;
     
@@ -39,6 +40,7 @@ Vehicle::Vehicle(VehicleType vehicleName,
     backXPos = backX;
     backYPos = backY;
     direction = moveDirection;
+    turnsRight = turnRight;
 }
 
 VehicleType Vehicle::getName() {
@@ -102,6 +104,11 @@ void Vehicle::setBackPos(int x, int y) {
 int Vehicle::getSize() {
 
     return size;
+}
+
+bool Vehicle::turnsRight() {
+
+    return turnsRight;
 }
  
 void Vehicle::go() {

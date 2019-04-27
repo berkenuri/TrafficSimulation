@@ -121,33 +121,7 @@ int main(int argc, char *argv[]) {
         	t++;
         }
 
-        // testing Vehicle class
-        /* 
-        Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north);
-        cout << car.getFrontXPos() << " [10] " << endl;
-        cout << car.getFrontYPos() << " [9] " << endl;
-        cout << car.getBackXPos() << " [10] " << endl;
-        cout << car.getBackYPos() << " [7] " <<  endl;
-        cout << car.getSize() << " [2] " << endl;
-
-        vector<int> frontPos = car.getFrontPos();
-
-        for(int i = 0; i < frontPos.size(); i++) {
-
-            cout << frontPos[i] << endl;
-        }
-
-
-        car.setBackPos(4, 3);
-
-        vector<int> backPos = car.getBackPos();
-
-        for(int i = 0; i < backPos.size(); i++) {
-
-            cout << backPos[i] << endl;
-        }
-        */
-
+        
     }
     return 0;
 }
