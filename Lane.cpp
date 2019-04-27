@@ -121,6 +121,34 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
  */
 bool Lane::isSafeToMove(Vehicle v, index i)
 {
+	if (index == 0)
+	{
+		return true;
+	}
+	Vehicle previous_vehicle = lane[i-1];
+	switch (previous_vehicle.getDirection())
+	{
+		case Direction::north:
+			if (previous_vehicle.getBackYPos() - 1 == v.getFrontYPos())
+			{
+				return false;
+			}
+		case Direction::south:
+			if (previous_vehicle.getBackYPos() + 1 == v.getFrontYPos())
+			{
+				return false;
+			}
+		case Direction::east:
+			if (previous_vehicle.getBackXPos() - 1 == v.getFrontXPos())
+			{
+				return false;
+			}
+		case Direction:: west:
+			if (previous_vehicle.getBackXPos() + 1 == v.getFrontXPos())
+			{
+				return false;
+			}
+	}
 	return true;
 }
 
