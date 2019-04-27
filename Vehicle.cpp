@@ -19,7 +19,7 @@ Vehicle::Vehicle(const Vehicle& other) {
     backXPos = other.backXPos;
     backYPos = other.backYPos;
     direction = other.direction;
-    turnRight = other.turnRight;
+    willTurnRight = other.willTurnRight;
 }
 
 // constructor
@@ -45,7 +45,7 @@ Vehicle::Vehicle(VehicleType vehicleName,
     backXPos = backX;
     backYPos = backY;
     direction = moveDirection;
-    turnRight = rightTurn;
+    willTurnRight = rightTurn;
 }
 
 // returns the name of the vehicle
@@ -124,7 +124,7 @@ int Vehicle::getSize() {
 // returns true if the vehicle is turning right, false otherwise
 bool Vehicle::turnsRight() {
 
-    return turnRight;
+    return willTurnRight;
 }
  
 // moves the vehicle one unit to the direction it is supposed to advance
@@ -153,6 +153,44 @@ void Vehicle::go() {
         frontXPos += 1;
         backXPos += 1;
     }
+}
+
+// turns the vehicle right
+void Vehicle::turnRight() {
+
+    if (direction == Direction::north) {
+
+        backYPos = frontYPos;
+        frontXPos += size;
+
+        direction = Direction::west;
+    }
+
+    else if (direction == Direction::south) {
+
+        backYPos = frontYPos;
+        frontXPos -= size;
+
+        direction = Direction::east;
+    }
+
+    else if (direction == Direction::west) {
+
+        backXPos = frontXPos;
+        frontYPos += size;
+
+        direction = Direction::north;
+    }
+
+    else {
+
+        backXPos = frontXPos;
+        frontYPos -= size;
+
+        direction = Direction::south;
+    }
+
+
 }
 
 // returns the direction of the vehicle 

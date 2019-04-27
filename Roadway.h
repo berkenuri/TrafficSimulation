@@ -13,9 +13,6 @@ class Roadway {
 
 		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
 		bool isIntersection();
-		void goStraight();
-		void turnRight();
-		bool safeToMove();
 };
 
 #endif

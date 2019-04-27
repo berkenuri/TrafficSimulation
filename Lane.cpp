@@ -9,7 +9,6 @@ Lane::Lane(TrafficLight light, int length)
 	this->light = light;
 	this->length = length;
 	//vector<Vehicle*> lane(length*2 +2, nullptr);
-	vector<Vehicle> lane; 
 }
 
 /*
@@ -18,8 +17,9 @@ Lane::Lane(TrafficLight light, int length)
  vehicle in the lane is occupying the last spot in the lane. If it is,
  then there is no room for a new vehicle.
  */
-bool Lane::isSpace()
+bool Lane::isSpace(Vehicle v)
 {
+	int size = v.getSize();
 	// Gets last vehicle in lane
 	Vehicle last_vehicle = lane.back();
 
@@ -28,22 +28,22 @@ bool Lane::isSpace()
 	switch(last_vehicle.getDirection())
 	{
 		case Direction::north:
-			if (last_vehicle.getBackYPos() <= 0)
+			if (last_vehicle.getBackYPos() < size)
 			{
 				return false;
 			}
 		case Direction::south:
-			if (last_vehicle.getBackYPos() >= length*2 + 2)
+			if (last_vehicle.getBackYPos() > length*2 + 1 - size)
 			{
 				return false;
 			}
 		case Direction::east:
-			if (last_vehicle.getBackXPos() <= 0)
+			if (last_vehicle.getBackXPos() < size)
 			{
 				return false;
 			}
 		case Direction::west:
-			if (last_vehicle.getBackXPos() >= length*2 + 2)
+			if (last_vehicle.getBackXPos() >= length*2 + 1 - size)
 			{
 				return false;
 			}
@@ -111,6 +111,43 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 		{
 			return false;
 		}
+	}
+	return true;
+}
+
+/*
+ *This method determines if a vehicle can move. It checks if there is a space in front of the vehicle. 
+ It also checks if the light is green or yellow.
+ */
+bool Lane::isSafeToMove(Vehicle v, index i)
+{
+	if (index == 0)
+	{
+		return true;
+	}
+	Vehicle previous_vehicle = lane[i-1];
+	switch (previous_vehicle.getDirection())
+	{
+		case Direction::north:
+			if (previous_vehicle.getBackYPos() - 1 == v.getFrontYPos())
+			{
+				return false;
+			}
+		case Direction::south:
+			if (previous_vehicle.getBackYPos() + 1 == v.getFrontYPos())
+			{
+				return false;
+			}
+		case Direction::east:
+			if (previous_vehicle.getBackXPos() - 1 == v.getFrontXPos())
+			{
+				return false;
+			}
+		case Direction:: west:
+			if (previous_vehicle.getBackXPos() + 1 == v.getFrontXPos())
+			{
+				return false;
+			}
 	}
 	return true;
 }
