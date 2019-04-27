@@ -106,20 +106,20 @@ int main(int argc, char *argv[]) {
         	
         	if(newVehicle >=  0.0 && newVehicle < prob_new_vehicle_northbound){
         		// Create a new Vehicle northbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north, false);
         	}
         	else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
         		// Create a new Vehicle southbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::south);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::south, false);
 
         	}
         	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
         		// Create a new Vehicle eastbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::east);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::east, false);
         	}
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
         		// Create a new Vehicle westbound
-                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::west);
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::west, false);
         	}
 
         	t++;
