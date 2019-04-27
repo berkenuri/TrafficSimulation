@@ -6,16 +6,19 @@ TrafficLight::TrafficLight(){
 	yLength = -1;
 	rLength = -1;
 	currentState = Color::defaultColor;
+	myDirection = TrafficLightDirection::defaultDirection;
 	cycleTime = -1;
 }
 
-TrafficLight::TrafficLight(int green, int yellow, int red, Color state, Direction direct){
+TrafficLight::TrafficLight(int green, int yellow, int red, Color state, TrafficLightDirection direct){
 	// Creates an instance of TrafficLigth with pass by value arguments
 	gLength = green;
 	yLength = yellow;
 	rLength = red;
 	currentState = state;
-	cycleTime = 2 * (green + yellow + red);
+	myDirection = direct;
+	// The total cycle time will be the time needed for a TrafficLight to turn green, yellow, and red
+	cycleTime = green + yellow + red;
 }
 
 TrafficLight::TrafficLight(const TrafficLight& other){
@@ -40,35 +43,38 @@ Color TrafficLight::getColor(){
 void TrafficLight::updateState(int time){
 	// Update the state of the TrafficLight given the current time of the simulation
 	int currentTime = time % cycleTime;
-	int halfCycle = cycleTime / 2;
 
 	switch(myDirection){
-		case Direction::north_south:
+		case TrafficLightDirection::north_south:
+		// In the case that the traffic light being updated is for the north or south lanes
 			if(currentTime >= 0 && currentTime < gLength){
+				// The north/south lanes first have a green ligth
 				currentState = Color::green;
 			}
-			else if(currentTime >= gLength && currentTime < halfCycle){
-				cout << "halfCycle: " << halfCycle << endl;
-				cout << "cycleTime: " << cycleTime << endl;
-				cout << "currentTime: " << currentTime << endl;
+			else if(currentTime >= gLength && currentTime < gLength + yLength){
+				//
 				currentState = Color::yellow;
 			}
-			else if(currentTime >= halfCycle && currentTime < cycleTime){
+			else if(currentTime >= gLength + yLength && currentTime < cycleTime){
 				currentState = Color::red;
 			}
 			break;
-		case Direction::east_west: 
-			if(currentTime >= halfCycle && currentTime < halfCycle + gLength){
-				currentState = Color::green;
-			}
-			else if(currentTime >= halfCycle + gLength && currentTime < cycleTime){
+		case TrafficLightDirection::east_west: 
+		// In the case that the traffic light being updated is for the east or west lanes
+			if(currentTime >= rLength + gLength && currentTime < cycleTime){
 				currentState = Color::yellow;
+				cout << "east_west yellow" << endl;
 			}
-			else if(currentTime >= 0 && currentTime < halfCycle){
+			else if(currentTime >= rLength && currentTime < rLength + gLength){
+				currentState = Color::green;
+				cout << "east_west green" << endl;
+			}
+			else if(currentTime >= 0 && currentTime < rLength){
 				currentState = Color::red;
+				cout << "east_west red" << endl;
 			}
 				break;
-		case Direction::defaultDirection:
+		case TrafficLightDirection::defaultDirection:
 		// Do nothing
 			break;
 	}
@@ -78,31 +84,31 @@ int TrafficLight::getTimeRemaining(int time){
 	// Return the time remaining before the color changes given the current state of 
     // the TrafficLight and the current time of the simulation
 	int currentTime = time % cycleTime;
-	int halfCycle = cycleTime / 2; 
 
 	switch(myDirection){
-		case Direction::north_south:
+		case TrafficLightDirection::north_south:
 			if(currentState == Color::green){
 				return gLength - 1 - currentTime;
 			}
 			else if(currentState == Color::yellow){
-				return halfCycle - 1 - currentTime;
+				return gLength + yLength - 1 - currentTime;
 			}
 			else if(currentState == Color::red){
 				return cycleTime - 1 - currentTime;
 			}
-		case Direction::east_west:
+		case TrafficLightDirection::east_west:
 			if(currentState == Color::green){
-				return halfCycle + gLength - 1 - currentTime;
+				return rLength + gLength - 1 - currentTime;
 			}
 			else if(currentState == Color::yellow){
 				return cycleTime - 1 - currentTime;
 			}
 			else if(currentState == Color::red){
-				return halfCycle - 1 - currentTime;
+				return gLength + yLength - 1 - currentTime;
 			}
-		case Direction::defaultDirection:
-		// Do nothing
-			break;
+		case TrafficLightDirection::defaultDirection:
+		// Return -1 to indicate a instance of TrafficLight that used the default constructor
+			return -1;
 	}
+	return -1;
 }

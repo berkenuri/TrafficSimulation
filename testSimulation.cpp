@@ -1,17 +1,13 @@
-<<<<<<< HEAD
 #include "Vehicle.h"
 #include "TrafficLight.h"
-//#include "Lane.h"
-//#include "Roadway.h"
-//#include "Tools.h"
-//#include "ReadInput.h"
+#include "Lane.h"
+#include "Roadway.h"
 
 #include <iostream>
 #include <fstream>
 #include <cctype>
 #include <sstream>
 #include <string>
-#include <vector>
 #include <array>
 #include <random>
 
@@ -76,18 +72,19 @@ int main(int argc, char *argv[]) {
         double prob_right_turn_trucks = var[16];
         double prob_left_turn_trucks = var[17];
 
-        // t will represent current time
+        // t will represent current time in the simulation starting at time zero
         int t = 0;
 
-        // create instance of the road
-
-        // create instance of lanes
-
         // Create four instances of TrafficLight for each lane/direction
-         TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, Color::defaultColor, Direction::north_south);
+
+        // North and south lanes will alwyas start with green 
+         TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, Color::green, TrafficLightDirection::north_south);
          TrafficLight *southLight = new TrafficLight(*northLight);
-         TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::defaultColor, Direction::east_west);
+         // East and west lanes will always start with red
+         TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::red, TrafficLightDirection::east_west);
          TrafficLight *westLight = new TrafficLight(*eastLight);
+
+         // Create an instance of Roadway that will 
 
         int initialSeed = 8675309;
         // Creating an instance of the Mersenne Twister 19937 Generator
@@ -98,24 +95,31 @@ int main(int argc, char *argv[]) {
         // This while loop will execute until time runs out (the current time is equal to the maximum simulated time)
         while(t < maximum_simulated_time){
 
+        	 // Update the state of each TrafficLight every clock tick 
         	 northLight->updateState(t);
         	 southLight->updateState(t); 
         	 eastLight->updateState(t);
         	 westLight->updateState(t);
 
+
         	double newVehicle = rand_double(generator);
-        	//double newVehicle = 0.0;
+        	
         	if(newVehicle >=  0.0 && newVehicle < prob_new_vehicle_northbound){
-        		// new Vehicle northbound
+        		// Create a new Vehicle northbound
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::north);
         	}
         	else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
-        		// new Vehicle southbound
+        		// Create a new Vehicle southbound
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::south);
+
         	}
         	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
-        		// new Vehicle eastbound
+        		// Create a new Vehicle eastbound
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::east);
         	}
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
-        		// new Vehicle westbound
+        		// Create a new Vehicle westbound
+                Vehicle car = Vehicle(VehicleType::car, 10, 9, 10, 7, Direction::west);
         	}
 
         	t++;
