@@ -13,7 +13,6 @@ class Lane {
 		bool isSpace(Vehicle v);
 	public:
 		vector<Vehicle> lane;
-		
 		Lane(TrafficLight light, int length);
 		~Lane();
 		vector<Vehicle*> pointerLane();

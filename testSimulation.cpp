@@ -327,7 +327,10 @@ int main(int argc, char *argv[]) {
                         road->westbound->lane[i].turnRight();
                     }
                 }
-
+	    //vector<Vehicle*> nbound = road->northbound->pointerLane();
+	    //vector<Vehicle*> sbound = road->southbound->pointerLane();
+	    //vector<Vehicle*> ebound = road->eastbound->pointerLane();
+	    //vector<Vehicle*> wbound = road->westbound->pointerLane();
             //anim.setVehiclesNorthbound(nbound);
             //anim.setVehiclesWestbound(wbound);
             //anim.setVehiclesSouthbound(sbound);
