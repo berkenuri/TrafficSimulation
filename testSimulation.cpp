@@ -214,109 +214,109 @@ int main(int argc, char *argv[]) {
         	    //wbound[0] = &vb;
             }
 
-         //    // Iterate through each lane attempting to move the Vehicles 
+            // Iterate through each lane attempting to move the Vehicles 
 
-         //    for(int i = 0; i < road->northbound->lane.size(); i++){
+            for(int i = 0; i < road->northbound->lane.size(); i++){
 
-         //        if(road->northbound->isSafeToMove(road->northbound->lane[i], i, t, yellow_north_south)) {
+                if(road->northbound->isSafeToMove(road->northbound->lane[i], i, t, yellow_north_south)) {
 
-         //            if(road->isIntersection(road->northbound->lane[i])) {
-         //                // If the vehicle at index i of the northbound lane is in the intersection
-         //                if(road->northbound->lane[i].turnsRight() == true){
-         //                    // Remove vehicle from current lane
-			      //           Vehicle v = road->northbound->lane[i];
-			      //           road->northbound->removeVehicle(i);
-			      //           // Turn right
-			      //           v.turnRight();
-         //                    // road->northbound->lane[i].turnRight();
-			      //           // Add vehicle to new lane
-			      //           road->eastbound->insertVehicle(v);
-         //                }
-         //                else{
-         //                    // Go straight
-         //                    road->northbound->lane[i].go();
-         //                }
-         //            }
-         //            else{
-         //                road->northbound->lane[i].go();
-         //            }
-         //        }
-         //    }
+                    if(road->isIntersection(road->northbound->lane[i])) {
+                        // If the vehicle at index i of the northbound lane is in the intersection
+                         if(road->northbound->lane[i].turnsRight() == true){
+                             // Remove vehicle from current lane
+			                Vehicle v = road->northbound->lane[i];
+			                 road->northbound->removeVehicle(i);
+			                // Turn right
+			                 v.turnRight();
+                             road->northbound->lane[i].turnRight();
+			                 // Add vehicle to new lane
+			                road->eastbound->insertVehicle(v);
+                        }
+                        else{
+                            // Go straight
+                            road->northbound->lane[i].go();
+                        }
+                    }
+                    else{
+                        road->northbound->lane[i].go();
+                    }
+                }
+            }
 
-         //    for(int i = 0; i < road->southbound->lane.size(); i++){
+            for(int i = 0; i < road->southbound->lane.size(); i++){
 
-         //        if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
+                if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
 
-         //            if(road->isIntersection(road->southbound->lane[i])){
-         //                // If the vehicle at index i of the southbound lane is in the intersection
-         //                if(road->southbound->lane[i].turnsRight() == true){
-			      //       Vehicle v = road->southbound->lane[i];
-			      //       road->southbound->removeVehicle(i);
-         //                // Turn right
-         //                // road->southbound->lane[i].turnRight();
-			      //       v.turnRight();
-			      //       road->westbound->insertVehicle(v);
-         //                }
-         //                else{
-         //                    // Go straight
-         //                    road->southbound->lane[i].go();
-         //                }
-         //            }
-         //            else{
-         //                road->southbound->lane[i].turnRight();
-         //            }
-         //        }
-         //    }
+                    if(road->isIntersection(road->southbound->lane[i])){
+                        // If the vehicle at index i of the southbound lane is in the intersection
+                        if(road->southbound->lane[i].turnsRight() == true){
+			            Vehicle v = road->southbound->lane[i];
+			            road->southbound->removeVehicle(i);
+                        // Turn right
+                        // road->southbound->lane[i].turnRight();
+			            v.turnRight();
+			            road->westbound->insertVehicle(v);
+                        }
+                        else{
+                            // Go straight
+                            road->southbound->lane[i].go();
+                        }
+                    }
+                    else{
+                        road->southbound->lane[i].turnRight();
+                    }
+                }
+            }
 
-            // for(int i = 0; i < road->eastbound->lane.size(); i++){ 
+            for(int i = 0; i < road->eastbound->lane.size(); i++){ 
 
-            //     if(road->eastbound->isSafeToMove(road->eastbound->lane[i], i, t, yellow_east_west)) {
+                if(road->eastbound->isSafeToMove(road->eastbound->lane[i], i, t, yellow_east_west)) {
 
-            //         if(road->isIntersection(road->eastbound->lane[i])){
-            //             // If the vehicle at index i of the eastbound lane is in the intersection
-            //             if(road->eastbound->lane[i].turnsRight() == true){
-            //                 // Turn right
-            //                 // road->eastbound->lane[i].turnRight();
-			         //        Vehicle v = road->eastbound->lane[i];
-			         //        road->eastbound->removeVehicle(i);
-			         //        v.turnRight();
-			         //        road->southbound->insertVehicle(v);
-            //             }
-            //             else{
-            //                 // Go straight
-            //                 road->eastbound->lane[i].go();
-            //             }
-            //         }
-            //         else{
-            //             road->eastbound->lane[i].turnRight();
-            //         }
-            //     }
-            // }
+                    if(road->isIntersection(road->eastbound->lane[i])){
+                        // If the vehicle at index i of the eastbound lane is in the intersection
+                        if(road->eastbound->lane[i].turnsRight() == true){
+                            // Turn right
+                            // road->eastbound->lane[i].turnRight();
+			                Vehicle v = road->eastbound->lane[i];
+			                road->eastbound->removeVehicle(i);
+			                v.turnRight();
+			                road->southbound->insertVehicle(v);
+                        }
+                        else{
+                            // Go straight
+                            road->eastbound->lane[i].go();
+                        }
+                    }
+                    else{
+                        road->eastbound->lane[i].turnRight();
+                    }
+                }
+            }
 
-            // for(int i = 0; i < road->westbound->lane.size(); i++){ 
+            for(int i = 0; i < road->westbound->lane.size(); i++){ 
 
-            //     if(road->westbound->isSafeToMove(road->westbound->lane[i], i, t, yellow_east_west)){
+                if(road->westbound->isSafeToMove(road->westbound->lane[i], i, t, yellow_east_west)){
 
-            //         if(road->isIntersection(road->westbound->lane[i])){
-            //             // If the vehicle at index i of the westbound lane is in the intersection
-            //             if(road->westbound->lane[i].turnsRight() == true){
-            //                 // Turn right
-            //                 // road->westbound->lane[i].turnRight();
-			         //        Vehicle v = road->westbound->lane[i];
-			         //        road->westbound->removeVehicle(i);
-			         //        v.turnRight();
-			         //        road->northbound->insertVehicle(v);
-            //             }
-            //             else{
-            //                 // Go straight
-            //                 road->westbound->lane[i].go();
-            //             }
-            //         }
-            //         else{
-            //             road->westbound->lane[i].turnRight();
-            //         }
-            //     }
-            // }
+                    if(road->isIntersection(road->westbound->lane[i])){
+                        // If the vehicle at index i of the westbound lane is in the intersection
+                        if(road->westbound->lane[i].turnsRight() == true){
+                            // Turn right
+                            // road->westbound->lane[i].turnRight();
+			                Vehicle v = road->westbound->lane[i];
+			                road->westbound->removeVehicle(i);
+			                v.turnRight();
+			                road->northbound->insertVehicle(v);
+                        }
+                        else{
+                            // Go straight
+                            road->westbound->lane[i].go();
+                        }
+                    }
+                    else{
+                        road->westbound->lane[i].turnRight();
+                    }
+                }
+            }
  
             t++;
         }      
