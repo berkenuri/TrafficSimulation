@@ -21,7 +21,7 @@ bool Lane::isSpace(Vehicle v)
 {
 	int size = v.getSize();
 	// Gets last vehicle in lane
-	if (size == 0)
+	if (lane.size() == 0)
 	{
 		return true;
 	}
