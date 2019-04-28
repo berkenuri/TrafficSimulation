@@ -14,8 +14,8 @@ class Roadway {
 
 		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
 		bool isIntersection(Vehicle v);
-		~Roadway();
 
+		~Roadway();
 };
 
 #endif
