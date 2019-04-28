@@ -103,7 +103,6 @@ int main(int argc, char *argv[]) {
         	 eastLight->updateState(t);
         	 westLight->updateState(t);
 
-
         	double newVehicle = rand_double(generator);
 
             int totalLaneLength = (number_of_sections_before_intersection * 2) + 2; // The total length of one lane will be the number of sections before the intersection multiplied two and added to two (the length of the intersection)

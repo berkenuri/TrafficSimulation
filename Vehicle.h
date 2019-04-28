@@ -83,9 +83,6 @@ class Vehicle {
         int backYPos;
         Direction direction;
         bool willTurnRight;
-        
-
-
 };
 
 #endif
