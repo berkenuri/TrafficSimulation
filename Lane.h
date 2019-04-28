@@ -15,7 +15,7 @@ class Lane {
 		vector<Vehicle> lane;
 		Lane(TrafficLight light, int length);
 		~Lane();
-		vector<Vehicle*> pointerLane();
+		vector<VehicleBase*> pointerLane();
 		void addVehicle(Vehicle v);
 		void removeVehicle();
 		void removeVehicle(int i);

@@ -1,8 +1,8 @@
 #include "Vehicle.h"
 #include "TrafficLight.h"
 #include "Roadway.h"
-//#include "Animator.h"
-//#include "VehicleBase.h"
+#include "Animator.h"
+#include "VehicleBase.h"
 
 #include <iostream>
 #include <fstream>
@@ -71,8 +71,8 @@ int main(int argc, char *argv[]) {
         double prob_right_turn_trucks = var[16];
         double prob_left_turn_trucks = var[17];
 
-        //Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
-        //Animator anim(number_of_sections_before_intersection);
+        Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
+        Animator anim(number_of_sections_before_intersection);
 
         // t will represent current time in the simulation starting at time zero
         int t = 0;
@@ -317,9 +317,44 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
+		
+	    vector<VehicleBase*> nbound = road->northbound->pointerLane();
+	    vector<VehicleBase*> sbound = road->southbound->pointerLane();
+	    vector<VehicleBase*> ebound = road->eastbound->pointerLane();
+	    vector<VehicleBase*> wbound = road->westbound->pointerLane();
+	    anim.setVehiclesNorthbound(nbound);
+	    anim.setVehiclesSouthbound(sbound);
+	    anim.setVehiclesEastbound(ebound);
+	    anim.setVehiclesWestbound(wbound);
+		
+	    switch(northLight->getColor())
+	    {
+		    case Color::green:
+			    anim.setLightNorthSouth(LightColor::green);
+		    case Color::yellow:
+			    anim.setLightNorthSouth(LightColor::yellow);
+		    case Color::red:
+			    anim.setLightNorthSouth(LightColor::red);
+	    }
+
+	    switch(eastLight->getColor())
+	    {
+		    case Color::green:
+			    anim.setLightEastWest(LightColor::green);
+	            case Color::yellow:
+			    anim.setLightEastWest(LightColor::yellow);
+		    case Color::red:
+			    anim.setLightEastWest(LightColor::red);
+	    }
+				
+	    anim.draw(maximum_simulated_time);
+
+						
+
  
             t++;
         }      
     }
-    return 0;
+
+ return 0;
 }

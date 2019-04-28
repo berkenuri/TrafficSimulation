@@ -64,7 +64,7 @@ void Lane::addVehicle(Vehicle v)
 	if (isSpace(v))
 	{
 		lane.push_back(v);
-	}
+	}	
 }
 
 /*
@@ -260,9 +260,9 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
  * This method returns a vector of vehicle pointers that corresponds to the vector of vehicles lane.
  * This is done because the Animator class requires a vector of vehicle pointers with size 2*length + 
  */
-vector<Vehicle*> Lane::pointerLane()
+vector<VehicleBase*> Lane::pointerLane()
 {
-	vector<Vehicle*> vp(2*length + 2, nullptr);
+	vector<VehicleBase*> vp(2*length + 2, nullptr);
 	if (lane.size() == 0)
 	{
 		return vp;
