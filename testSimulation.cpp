@@ -1,6 +1,8 @@
 #include "Vehicle.h"
 #include "TrafficLight.h"
 #include "Roadway.h"
+//#include "Animator.h"
+//#include "VehicleBase.h"
 
 #include <iostream>
 #include <fstream>
@@ -72,21 +74,32 @@ int main(int argc, char *argv[]) {
         double prob_right_turn_trucks = var[16];
         double prob_left_turn_trucks = var[17];
 
+        //Animator::MAX_VEHICLE_COUNT = 9999;  // vehicles will be displayed with four digits
+        //Animator anim(number_of_sections_before_intersection);
+
         // t will represent current time in the simulation starting at time zero
         int t = 0;
 
         // Create four instances of TrafficLight for each lane/direction
 
         // North and south lanes will alwyas start with green 
-         TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, Color::green, TrafficLightDirection::north_south);
-         TrafficLight *southLight = new TrafficLight(*northLight);
-         // East and west lanes will always start with red
-         TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::red, TrafficLightDirection::east_west);
-         TrafficLight *westLight = new TrafficLight(*eastLight);
+        TrafficLight *northLight = new TrafficLight(green_north_south, yellow_north_south, red_north_south, Color::green, TrafficLightDirection::north_south);
+        TrafficLight *southLight = new TrafficLight(*northLight);
+        // East and west lanes will always start with red
+        TrafficLight *eastLight = new TrafficLight(green_east_west, yellow_east_west, red_east_west, Color::red, TrafficLightDirection::east_west);
+        TrafficLight *westLight = new TrafficLight(*eastLight);
 
-         // Create an instance of Roadway that will internally create four instances of Lane
+        //anim.setLightNorthSouth(LightColor::green);
+        //anim.setLightEastWest(LightColor::red);
 
-         Roadway *road = new Roadway(*northLight, *eastLight, number_of_sections_before_intersection);
+        // Create an instance of Roadway that will internally create four instances of Lane
+
+        Roadway *road = new Roadway(*northLight, *eastLight, number_of_sections_before_intersection);
+
+        //vector<VehicleBase*> wbound(number_of_sections_before_intersection * 2 + 2, nullptr);
+        //vector<VehicleBase*> ebound(number_of_sections_before_intersection * 2 + 2, nullptr);
+        //vector<VehicleBase*> sbound(number_of_sections_before_intersection * 2 + 2, nullptr);
+        //vector<VehicleBase*> nbound(number_of_sections_before_intersection * 2 + 2, nullptr);
 
         int initialSeed = 8675309;
         // Creating an instance of the Mersenne Twister 19937 Generator
@@ -97,11 +110,11 @@ int main(int argc, char *argv[]) {
         // This while loop will execute until time runs out (the current time is equal to the maximum simulated time)
         while(t < maximum_simulated_time){
 
-        	 // Update the state of each TrafficLight every clock tick 
-        	 northLight->updateState(t);
-        	 southLight->updateState(t); 
-        	 eastLight->updateState(t);
-        	 westLight->updateState(t);
+        	// Update the state of each TrafficLight every clock tick 
+        	northLight->updateState(t);
+        	southLight->updateState(t); 
+        	eastLight->updateState(t);
+        	westLight->updateState(t);
 
         	double newVehicle = rand_double(generator);
 
@@ -126,65 +139,81 @@ int main(int argc, char *argv[]) {
                 if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
                     // Create a car northbound where the size is hardcoded as 2
                     v = Vehicle(VehicleType::car, number_of_sections_before_intersection + 2, 1, number_of_sections_before_intersection + 2, 0, Direction::north, turnRightCar);
+                    //VehicleBase vb(VehicleType::car, Direction::north);
                 }
                 else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
                     // Create a new SUV northbound where the size is hardcoded as 3
                     v = Vehicle(VehicleType::suv, number_of_sections_before_intersection + 2, 2, number_of_sections_before_intersection + 2, 0, Direction::north, turnRightSUV);
+                    //VehicleBase vb(VehicleType::suv, Direction::north);
                 }
                 else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
                     // Create a new truck northbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, number_of_sections_before_intersection + 2, 3, number_of_sections_before_intersection + 2, 0, Direction::north, turnRightTruck);
+                    //VehicleBase vb(VehicleType::truck, Direction::north);
                 }
                 road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
+                //nbound[i] = &vb;
         	}
         	else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
         		// Create a new Vehicle southbound. 
                 if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
                     // Create a car northbound where the size is hardcoded as 2
                     v = Vehicle(VehicleType::car, number_of_sections_before_intersection + 1, totalLaneLength - 2, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightCar);
+                    //VehicleBase vb(VehicleType::car, Direction::south);
                 }
                 else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
                     // Create a new SUV northbound where the size is hardcoded as 3
                     v = Vehicle(VehicleType::suv, number_of_sections_before_intersection + 1, totalLaneLength - 3, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightSUV);
+                    //VehicleBase vb(VehicleType::suv, Direction::south);
                 }
                 else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
                     // Create a new truck northbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, number_of_sections_before_intersection + 1, totalLaneLength - 4, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightTruck);
+                    //VehicleBase vb(VehicleType::truck, Direction::south);
                 }
                 road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-        	}
+        	    //sbound[i] = &vb;
+            }
         	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
         		// Create a new Vehicle eastbound
                 if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
                     // Create a car eastbound where the size is hardcoded as 2
                     v = Vehicle(VehicleType::car, 1, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightCar);
+                    //VehicleBase vb(VehicleType::car, Direction::east);
                 }
                 else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
                     // Create a new SUV eastbound where the size is hardcoded as 3
                     v = Vehicle(VehicleType::suv, 2, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightSUV);
+                    //VehicleBase vb(VehicleType::suv, Direction::east);
                 }
                 else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
                     // Create a new truck eastbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, 3, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightTruck);
+                    //VehicleBase vb(VehicleType::truck, Direction::east);
                 }
                 road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
-        	}
+        	    //ebound[i] = &vb
+            }
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
         		// Create a new Vehicle westbound
                 if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
                     // Create a car eastbound where the size is hardcoded as 2
                     v = Vehicle(VehicleType::car, totalLaneLength - 2, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightCar);
+                    //VehicleBase vb(VehicleType::car, Direction::west);
                 }
                 else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
                     // Create a new SUV eastbound where the size is hardcoded as 3
                     v = Vehicle(VehicleType::suv, totalLaneLength - 3, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightSUV);
+                    //VehicleBase vb(VehicleType::suv, Direction::west);
                 }
                 else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
                     // Create a new truck eastbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, totalLaneLength - 4, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightTruck);
+                    //VehicleBase vb(VehicleType::truck, Direction::west);
                 }
                 road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-        	}
+        	    //wbound[i] = &vb;
+            }
 
             // Iterate through each lane attempting to move the Vehicles 
 
@@ -263,6 +292,12 @@ int main(int argc, char *argv[]) {
                     }
                 }
 
+            //anim.setVehiclesNorthbound(nbound);
+            //anim.setVehiclesWestbound(wbound);
+            //anim.setVehiclesSouthbound(sbound);
+            //anim.setVehiclesEastbound(ebound);
+
+            //anim.draw(i);
             }
 
             t++;
