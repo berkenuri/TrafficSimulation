@@ -61,6 +61,20 @@ bool Lane::isSpace(Vehicle v)
  */
 void Lane::addVehicle(Vehicle v)
 {
+	cout << "Adding vehicle" << endl;
+	cout << v.getFrontYPos() << endl;
+	switch(v.getDirection())
+	{
+		case Direction::north:
+			cout << "North" << endl;
+		case Direction::south:
+			cout << "South" << endl;
+		case Direction::east:
+			cout << "East" << endl;
+		case Direction::west:
+			cout << "West" << endl;
+	}
+	cout << "Done adding vehicle" << endl;
 	if (isSpace(v))
 	{
 		lane.push_back(v);
@@ -281,7 +295,9 @@ vector<VehicleBase*> Lane::pointerLane()
 		case Direction::south:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
+				cout << "Adding pointer" << endl;
 				Vehicle w = *it;
+				cout << "Front y pos of pointer: " << w.getFrontYPos() << endl;
 				Vehicle* wptr = &w;
 				fill(vp.begin() + w.getFrontYPos(), vp.begin() + w.getBackYPos(), wptr);
 			}

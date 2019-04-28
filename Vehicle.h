@@ -11,7 +11,7 @@ class Vehicle : public VehicleBase {
     public:
 
         // default constructor
-        Vehicle();
+       // Vehicle();
         
         // copy constructor
         Vehicle(const Vehicle& other);
