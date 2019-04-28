@@ -57,7 +57,7 @@ bool Lane::isSpace(Vehicle v)
  */
 void Lane::addVehicle(Vehicle v)
 {
-	if (isSpace())
+	if (isSpace(v))
 	{
 		lane.push_back(v);
 	}
@@ -119,9 +119,9 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
  *This method determines if a vehicle can move. It checks if there is a space in front of the vehicle. 
  It also checks if the light is green or yellow.
  */
-bool Lane::isSafeToMove(Vehicle v, index i)
+bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 {
-	if (index == 0)
+	if (i == 0)
 	{
 		return true;
 	}
@@ -133,20 +133,48 @@ bool Lane::isSafeToMove(Vehicle v, index i)
 			{
 				return false;
 			}
+			else if (v.getFrontYPos() == length)
+			{
+				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
+				{
+					return false;
+				}
+			}			
 		case Direction::south:
 			if (previous_vehicle.getBackYPos() + 1 == v.getFrontYPos())
 			{
 				return false;
+			}
+			else if (v.getFrontYPos() == length + 2)
+			{
+				if (!crossSafely(v,t, tyellow) or light.getColor() == Color::red)
+				{
+					return false;
+				}
 			}
 		case Direction::east:
 			if (previous_vehicle.getBackXPos() - 1 == v.getFrontXPos())
 			{
 				return false;
 			}
+			else if (v.getFrontXPos() == length)
+			{
+				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
+				{
+					return false;
+				}
+			}
 		case Direction:: west:
 			if (previous_vehicle.getBackXPos() + 1 == v.getFrontXPos())
 			{
 				return false;
+			}
+			else if (v.getFrontXPos() == length + 2)
+			{
+				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
+				{
+					return false;
+				}
 			}
 	}
 	return true;

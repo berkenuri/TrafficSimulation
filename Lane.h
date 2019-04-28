@@ -10,7 +10,7 @@ class Lane {
 	private:
 		TrafficLight light;
 		int length;
-		bool isSpace();
+		bool isSpace(Vehicle v);
 	public:
 		vector<Vehicle> lane;
 		
@@ -19,7 +19,7 @@ class Lane {
 		void addVehicle(Vehicle v);
 		void removeVehicle();
 		bool crossSafely(Vehicle v, int t, int tyellow);
-		bool isSafeToMove(Vehicle v, int index);
+		bool isSafeToMove(Vehicle v, int index, int t, int tyellow);
 };
 
 #endif
