@@ -13,9 +13,9 @@ class Lane {
 		bool isSpace(Vehicle v);
 	public:
 		vector<Vehicle> lane;
-		
 		Lane(TrafficLight light, int length);
 		~Lane();
+		vector<Vehicle*> pointerLane();
 		void addVehicle(Vehicle v);
 		void removeVehicle();
 		void removeVehicle(int i);

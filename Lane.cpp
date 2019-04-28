@@ -21,6 +21,10 @@ bool Lane::isSpace(Vehicle v)
 {
 	int size = v.getSize();
 	// Gets last vehicle in lane
+	if (size == 0)
+	{
+		return true;
+	}
 	Vehicle last_vehicle = lane.back();
 
 	// Checks if last vehicle occupies the last position in the lane.
@@ -251,4 +255,64 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 	}
 	return true;
 }
+
+/*
+ * This method returns a vector of vehicle pointers that corresponds to the vector of vehicles lane.
+ * This is done because the Animator class requires a vector of vehicle pointers with size 2*length + 
+ */
+vector<Vehicle*> Lane::pointerLane()
+{
+	vector<Vehicle*> vp(2*length + 2, nullptr);
+	if (lane.size() == 0)
+	{
+		return vp;
+	}
+	Vehicle v = lane[0];
+	vector<Vehicle>::iterator it;
+	switch (v.getDirection())
+	{
+		case Direction::north:
+			for (it = lane.begin(); it != lane.end(); it++)
+			{
+				Vehicle w = *it;
+				Vehicle* wptr = &w;
+				fill(vp.begin() + w.getBackYPos(), vp.begin() + w.getFrontYPos(), wptr);
+			}
+		case Direction::south:
+			for (it = lane.begin(); it != lane.end(); it++)
+			{
+				Vehicle w = *it;
+				Vehicle* wptr = &w;
+				fill(vp.begin() + w.getFrontYPos(), vp.begin() + w.getBackYPos(), wptr);
+			}
+		case Direction::east:
+			for (it = lane.begin(); it != lane.end(); it++)
+			{
+				Vehicle w = *it;
+				Vehicle* wptr = &w;
+				fill(vp.begin() + w.getBackXPos(), vp.begin() + w.getFrontXPos(), wptr);
+			}
+		case Direction::west:
+			for (it = lane.begin(); it != lane.end(); it++)
+			{
+				Vehicle w = *it;
+				Vehicle* wptr = &w;
+				fill(vp.begin() + w.getFrontXPos(), vp.begin() + w.getBackXPos(), wptr);
+			}
+	}
+	return vp;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

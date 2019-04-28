@@ -155,6 +155,7 @@ int main(int argc, char *argv[]) {
                 //road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
                 //nbound[0] = &vb;
         	}
+
         	//else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
         	//	// Create a new Vehicle southbound. 
                // if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
@@ -325,7 +326,7 @@ int main(int argc, char *argv[]) {
             //         }
             //     }
             // }
-
+ 
             t++;
         }      
     }
