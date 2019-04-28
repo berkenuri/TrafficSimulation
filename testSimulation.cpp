@@ -195,8 +195,14 @@ int main(int argc, char *argv[]) {
                     if(road->isIntersection(road->northbound->lane[i])) {
                         // If the vehicle at index i of the northbound lane is in the intersection
                         if(road->northbound->lane[i].turnsRight() == true){
-                            // Turn right
-                            road->northbound->lane[i].turnRight();
+                            // Remove vehicle from current lane
+			    Vehicle v = road->northbound->lane[i];
+			    road->northbound->removeVehicle(i);
+			    // Turn right
+			    v.turnRight();
+                            // road->northbound->lane[i].turnRight();
+			    // Add vehicle to new lane
+			    road->eastbound->insertVehicle(v);
                         }
                         else{
                             // Go straight
@@ -213,16 +219,20 @@ int main(int argc, char *argv[]) {
                     if(road->isIntersection(road->southbound->lane[i])){
                         // If the vehicle at index i of the southbound lane is in the intersection
                         if(road->southbound->lane[i].turnsRight() == true){
+			    Vehicle v = road->southbound->lane[i];
+			    road->southbound->removeVehicle(i);
                             // Turn right
-                            road->southbound->lane[i].turnRight();
+                            // road->southbound->lane[i].turnRight();
+			    v.turnRight();
+			    road->westbound->insertVehicle(v);
                         }
                         else{
                             // Go straight
-                            road->northbound->lane[i].go();
+                            road->southbound->lane[i].go();
                         }
                     }
                     else{
-                        road->northbound->lane[i].turnRight();
+                        road->southbound->lane[i].turnRight();
                     }
                 }
 
@@ -233,7 +243,11 @@ int main(int argc, char *argv[]) {
                         // If the vehicle at index i of the eastbound lane is in the intersection
                         if(road->eastbound->lane[i].turnsRight() == true){
                             // Turn right
-                            road->eastbound->lane[i].turnRight();
+                            // road->eastbound->lane[i].turnRight();
+			    Vehicle v = road->eastbound->lane[i];
+			    road->eastbound->removeVehicle(i);
+			    v.turnRight();
+			    road->southbound->insertVehicle(v);
                         }
                         else{
                             // Go straight
@@ -251,7 +265,11 @@ int main(int argc, char *argv[]) {
                         // If the vehicle at index i of the westbound lane is in the intersection
                         if(road->westbound->lane[i].turnsRight() == true){
                             // Turn right
-                            road->westbound->lane[i].turnRight();
+                            // road->westbound->lane[i].turnRight();
+			    Vehicle v = road->westbound->lane[i];
+			    road->westbound->removeVehicle(i);
+			    v.turnRight();
+			    road->northbound->insertVehicle(v);
                         }
                         else{
                             // Go straight
