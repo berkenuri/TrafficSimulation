@@ -62,6 +62,69 @@ void Lane::addVehicle(Vehicle v)
 		lane.push_back(v);
 	}
 }
+
+/*
+ *This method adds a vehicle that has made a right turn. It first determines the index
+ of the first vehicle in the lane before the intersection. It then adds the new vehicle
+ directly in front of that vehicle.
+ */
+void Lane::insertVehicle(Vehicle v)
+{
+	int index = -1;
+	
+	switch (v.getDirection())
+	{
+		case Direction::north:
+			for (int i = 0; i < lane.size(); i++)
+			{
+				if (lane[i].getFrontYPos() <= length)
+				{
+					index = i;
+					break;
+				}
+			}
+		case Direction::south:
+			for (int i = 0; i < lane.size(); i++)
+			{
+				if (lane[i].getFrontYPos() >= length + 2)
+				{
+					index = i;
+					break;
+				}
+			}
+		case Direction::east:
+			for (int i = 0; i < lane.size(); i++)
+			{
+				if (lane[i].getFrontXPos() <= length)
+				{
+					index = i;
+					break;
+				}
+			}
+		case Direction::west:
+			for (int i = 0; i < lane.size(); i++)
+			{
+				if (lane[i].getFrontXPos() >= length + 2)
+				{
+					index = i;
+					break;
+				}
+			}
+	}
+
+	if (index != -1)
+	{
+		lane.insert(lane.begin() + index, v);
+	}
+	else
+	{
+		lane.push_back(v);
+	}
+}
+
+
+
+
 /*
  *This method removes the first vehicle in the lane from the lane. This method will 
  be called when the vehicle reaches the end of the lane.
@@ -71,6 +134,14 @@ void Lane::removeVehicle()
 	// Remove first vehicle in list
 	
 	lane.erase(lane.begin());
+}
+
+/*
+ *This method removes a vehicle that made a right turn from the lane. 
+ */
+void Lane::removeVehicle(int i)
+{
+	lane.erase(lane.begin() + i);
 }
 
 /*

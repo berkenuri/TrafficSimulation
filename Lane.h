@@ -18,6 +18,8 @@ class Lane {
 		~Lane();
 		void addVehicle(Vehicle v);
 		void removeVehicle();
+		void removeVehicle(int i);
+		void insertVehicle(Vehicle v);
 		bool crossSafely(Vehicle v, int t, int tyellow);
 		bool isSafeToMove(Vehicle v, int index, int t, int tyellow);
 };
