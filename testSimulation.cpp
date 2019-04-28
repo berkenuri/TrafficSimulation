@@ -189,29 +189,76 @@ int main(int argc, char *argv[]) {
             // Iterate through each lane attempting to move the Vehicles 
 
             for(int i = 0; i < totalLaneLength; i++){
-                if(road->isIntersection(road->northbound->lane[i])){
-                    // If the vehicle at index i of the northbound lane is in the intersection
-                    if(road->northbound->lane[i].turnsRight() == true){
-                        // Turn right
+
+                if( northLight->getColor() == Color::green) {
+
+                    if(road->isIntersection(road->northbound->lane[i])){
+                        // If the vehicle at index i of the northbound lane is in the intersection
+                        if(road->northbound->lane[i].turnsRight() == true){
+                            // Turn right
+                            road->northbound->lane[i].turnRight();
+                        }
+                        else{
+                            // Go straight
+                            road->northbound->lane[i].go();
+                        }
                     }
                     else{
-                        // Go straight
+                        road->northbound->lane[i].go();
                     }
-                }
-                else{
-                    road->northbound->lane[i].go();
-                }
-                if(road->isIntersection(road->southbound->lane[i])){
-                    // If the vehicle at index i of the southbound lane is in the intersection
-                    if(road->southbound->lane[i].turnsRight() == true){
-                        // Turn right
+
+                    if(road->isIntersection(road->southbound->lane[i])){
+                        // If the vehicle at index i of the southbound lane is in the intersection
+                        if(road->southbound->lane[i].turnsRight() == true){
+                            // Turn right
+                            road->southbound->lane[i].turnRight();
+                        }
+                        else{
+                            // Go straight
+                            road->northbound->lane[i].go();
+                        }
                     }
                     else{
-                        // Go straight
+                        road->northbound->lane[i].turnRight();
                     }
                 }
+
+                if( westLight->getColor() == Color::green) {
+
+                    if(road->isIntersection(road->eastbound->lane[i])){
+                        // If the vehicle at index i of the eastbound lane is in the intersection
+                        if(road->eastbound->lane[i].turnsRight() == true){
+                            // Turn right
+                            road->eastbound->lane[i].turnRight();
+                        }
+                        else{
+                            // Go straight
+                            road->eastbound->lane[i].go();
+                        }
+                    }
+                    else{
+                        road->eastbound->lane[i].turnRight();
+                    }
+
+                    if(road->isIntersection(road->westbound->lane[i])){
+                        // If the vehicle at index i of the westbound lane is in the intersection
+                        if(road->westbound->lane[i].turnsRight() == true){
+                            // Turn right
+                            road->westbound->lane[i].turnRight();
+                        }
+                        else{
+                            // Go straight
+                            road->westbound->lane[i].go();
+                        }
+                    }
+                    else{
+                        road->westbound->lane[i].turnRight();
+                    }
+                }
+
             }
-        	t++;
+
+            t++;
         }      
     }
     return 0;
