@@ -4,13 +4,13 @@
 #include "Vehicle.h"
 
 // default constructor
-Vehicle::Vehicle() {}
+Vehicle::Vehicle() : VehicleBase() {}
 
 // deconstructor
 Vehicle::~Vehicle() {}
 
 // copy constructor
-Vehicle::Vehicle(const Vehicle& other) {
+Vehicle::Vehicle(const Vehicle& other) : VehicleBase(other) {
 
     name = other.name;
     size = other.size;
@@ -26,7 +26,9 @@ Vehicle::Vehicle(const Vehicle& other) {
 Vehicle::Vehicle(VehicleType vehicleName, 
                 int frontX, int frontY, 
                 int backX, int backY, 
-                Direction moveDirection, bool rightTurn) {
+                Direction moveDirection, bool rightTurn) :
+
+VehicleBase(vehicleName, moveDirection) {
 
     name = vehicleName;
 

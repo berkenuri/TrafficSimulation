@@ -1,8 +1,8 @@
 #include "Vehicle.h"
 #include "TrafficLight.h"
 #include "Roadway.h"
-//#include "Animator.h"
-//#include "VehicleBase.h"
+#include "Animator.h"
+#include "VehicleBase.h"
 
 #include <iostream>
 #include <fstream>
