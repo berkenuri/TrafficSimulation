@@ -88,11 +88,11 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 	// make it through the intersection
 	if (v.turnsRight())
 	{
-		tn = size + 1;
+		tn = 3;
 	}
 	else
 	{
-		tn = size + 3;
+		tn = size + 2;
 	}
 	// If the light is yellow, the vehicle has until the 
 	// light changes to go through the intersection
