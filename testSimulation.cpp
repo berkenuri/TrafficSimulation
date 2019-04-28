@@ -1,8 +1,8 @@
 #include "Vehicle.h"
 #include "TrafficLight.h"
 #include "Roadway.h"
-#include "Animator.h"
-#include "VehicleBase.h"
+//#include "Animator.h"
+//#include "VehicleBase.h"
 
 #include <iostream>
 #include <fstream>
@@ -144,197 +144,187 @@ int main(int argc, char *argv[]) {
                     // Create a new SUV northbound where the size is hardcoded as 3
                     Vehicle v(VehicleType::suv, number_of_sections_before_intersection + 2, 2, number_of_sections_before_intersection + 2, 0, Direction::north, turnRightSUV);
                     //vb = VehicleBase(VehicleType::suv, Direction::north);
-                    road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
+                   // road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
                 }
                 else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
                     // Create a new truck northbound where the size is hardcoded as 4
                     Vehicle v(VehicleType::truck, number_of_sections_before_intersection + 2, 3, number_of_sections_before_intersection + 2, 0, Direction::north, turnRightTruck);
                     //vb = VehicleBase(VehicleType::truck, Direction::north);
-                    road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
+                    //road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
                 }
                 //road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
                 //nbound[0] = &vb;
         	}
-        	else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
-        		// Create a new Vehicle southbound. 
-                if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
-                    // Create a car northbound where the size is hardcoded as 2
-                    Vehicle v(VehicleType::car, number_of_sections_before_intersection + 1, totalLaneLength - 2, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightCar);
-                    //vb = VehicleBase(VehicleType::car, Direction::south);
-                    road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-                }
-                else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
-                    // Create a new SUV northbound where the size is hardcoded as 3
-                    Vehicle v(VehicleType::suv, number_of_sections_before_intersection + 1, totalLaneLength - 3, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightSUV);
-                    //vb = VehicleBase(VehicleType::suv, Direction::south);
-                    road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-                }
-                else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
-                    // Create a new truck northbound where the size is hardcoded as 4
-                    Vehicle v(VehicleType::truck, number_of_sections_before_intersection + 1, totalLaneLength - 4, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightTruck);
-                    //vb = VehicleBase(VehicleType::truck, Direction::south);
-                    road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-                }
-                //road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-        	    //sbound[0] = &vb;
-            }
-        	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
-        		// Create a new Vehicle eastbound
-                if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
-                    // Create a car eastbound where the size is hardcoded as 2
-                    Vehicle v(VehicleType::car, 1, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightCar);
-                    //vb = VehicleBase(VehicleType::car, Direction::east);
-                    road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
-                }
-                else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
-                    // Create a new SUV eastbound where the size is hardcoded as 3
-                    Vehicle v(VehicleType::suv, 2, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightSUV);
-                    //vb = VehicleBase(VehicleType::suv, Direction::east);
-                    road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
-                }
-                else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
-                    // Create a new truck eastbound where the size is hardcoded as 4
-                    Vehicle v(VehicleType::truck, 3, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightTruck);
-                    //vb = VehicleBase(VehicleType::truck, Direction::east);
-                    road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
-                }
-                //road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
-        	    //ebound[0] = &vb;
-            }
-        	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
-        		// Create a new Vehicle westbound
-                if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
-                    // Create a car eastbound where the size is hardcoded as 2
-                    Vehicle v(VehicleType::car, totalLaneLength - 2, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightCar);
-                    //vb = VehicleBase(VehicleType::car, Direction::west);
-                    road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-                }
-                else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
-                    // Create a new SUV eastbound where the size is hardcoded as 3
-                    Vehicle v(VehicleType::suv, totalLaneLength - 3, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightSUV);
-                    //vb = VehicleBase(VehicleType::suv, Direction::west);
-                    road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-                }
-                else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
-                    // Create a new truck eastbound where the size is hardcoded as 4
-                    Vehicle v(VehicleType::truck, totalLaneLength - 4, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightTruck);
-                    //vb = VehicleBase(VehicleType::truck, Direction::west);
-                    road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-                }
-                //road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
-        	    //wbound[0] = &vb;
-            }
+        	//else if(newVehicle >= prob_new_vehicle_northbound && newVehicle < prob_new_vehicle_southbound){
+        	//	// Create a new Vehicle southbound. 
+               // if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
+                   // // Create a car northbound where the size is hardcoded as 2
+                    //Vehicle v(VehicleType::car, number_of_sections_before_intersection + 1, totalLaneLength - 2, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightCar);
+         //            //vb = VehicleBase(VehicleType::car, Direction::south);
+         //            road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
+         //        }
+         //        else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
+         //            // Create a new SUV northbound where the size is hardcoded as 3
+         //            Vehicle v(VehicleType::suv, number_of_sections_before_intersection + 1, totalLaneLength - 3, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightSUV);
+         //            //vb = VehicleBase(VehicleType::suv, Direction::south);
+         //            road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
+         //        }
+         //        else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
+         //            // Create a new truck northbound where the size is hardcoded as 4
+         //            Vehicle v(VehicleType::truck, number_of_sections_before_intersection + 1, totalLaneLength - 4, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightTruck);
+         //            //vb = VehicleBase(VehicleType::truck, Direction::south);
+         //            road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
+         //        }
+         //        //road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
+        	//     //sbound[0] = &vb;
+         //    }
+        	// else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
+        	// 	// Create a new Vehicle eastbound
+         //        if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
+         //            // Create a car eastbound where the size is hardcoded as 2
+         //            Vehicle v(VehicleType::car, 1, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightCar);
+         //            //vb = VehicleBase(VehicleType::car, Direction::east);
+         //            road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
+         //        }
+         //        else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
+         //            // Create a new SUV eastbound where the size is hardcoded as 3
+         //            Vehicle v(VehicleType::suv, 2, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightSUV);
+         //            //vb = VehicleBase(VehicleType::suv, Direction::east);
+         //            road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
+         //        }
+         //        else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
+         //            // Create a new truck eastbound where the size is hardcoded as 4
+         //            Vehicle v(VehicleType::truck, 3, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightTruck);
+         //            //vb = VehicleBase(VehicleType::truck, Direction::east);
+         //            road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
+         //        }
+         //        //road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
+        	//     //ebound[0] = &vb;
+         //    }
+        	// else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
+        	// 	// Create a new Vehicle westbound
+         //        if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
+         //            // Create a car eastbound where the size is hardcoded as 2
+         //            Vehicle v(VehicleType::car, totalLaneLength - 2, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightCar);
+         //            //vb = VehicleBase(VehicleType::car, Direction::west);
+         //        }
+         //        else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
+         //            // Create a new SUV eastbound where the size is hardcoded as 3
+         //            Vehicle v(VehicleType::suv, totalLaneLength - 3, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightSUV);
+         //            //vb = VehicleBase(VehicleType::suv, Direction::west);
+         //        }
+         //        else if(newVehicle > proportion_of_SUVs && newVehicle < proportion_of_SUVs + proportion_of_trucks){
+         //            // Create a new truck eastbound where the size is hardcoded as 4
+         //            Vehicle v(VehicleType::truck, totalLaneLength - 4, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightTruck);
+         //            //vb = VehicleBase(VehicleType::truck, Direction::west);
+         //        }
+         //        //road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
+        	//     //wbound[0] = &vb;
+         //    }
 
-            // Iterate through each lane attempting to move the Vehicles 
+         //    // Iterate through each lane attempting to move the Vehicles 
 
-            for(int i = 0; i < road->northbound->lane.size(); i++){
+         //    for(int i = 0; i < road->northbound->lane.size(); i++){
 
-                if(road->northbound->isSafeToMove(road->northbound->lane[i], i, t, yellow_north_south)) {
+         //        if(road->northbound->isSafeToMove(road->northbound->lane[i], i, t, yellow_north_south)) {
 
-                    if(road->isIntersection(road->northbound->lane[i])) {
-                        // If the vehicle at index i of the northbound lane is in the intersection
-                        if(road->northbound->lane[i].turnsRight() == true){
-                            // Remove vehicle from current lane
-			                Vehicle v = road->northbound->lane[i];
-			                road->northbound->removeVehicle(i);
-			                // Turn right
-			                v.turnRight();
-                            // road->northbound->lane[i].turnRight();
-			                // Add vehicle to new lane
-			                road->eastbound->insertVehicle(v);
-                        }
-                        else{
-                            // Go straight
-                            road->northbound->lane[i].go();
-                        }
-                    }
-                    else{
-                        road->northbound->lane[i].go();
-                    }
-                }
-            }
+         //            if(road->isIntersection(road->northbound->lane[i])) {
+         //                // If the vehicle at index i of the northbound lane is in the intersection
+         //                if(road->northbound->lane[i].turnsRight() == true){
+         //                    // Remove vehicle from current lane
+			      //           Vehicle v = road->northbound->lane[i];
+			      //           road->northbound->removeVehicle(i);
+			      //           // Turn right
+			      //           v.turnRight();
+         //                    // road->northbound->lane[i].turnRight();
+			      //           // Add vehicle to new lane
+			      //           road->eastbound->insertVehicle(v);
+         //                }
+         //                else{
+         //                    // Go straight
+         //                    road->northbound->lane[i].go();
+         //                }
+         //            }
+         //            else{
+         //                road->northbound->lane[i].go();
+         //            }
+         //        }
+         //    }
 
-            for(int i = 0; i < road->southbound->lane.size(); i++){
+         //    for(int i = 0; i < road->southbound->lane.size(); i++){
 
-                if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
+         //        if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
 
-                    if(road->isIntersection(road->southbound->lane[i])){
-                        // If the vehicle at index i of the southbound lane is in the intersection
-                        if(road->southbound->lane[i].turnsRight() == true){
-			            Vehicle v = road->southbound->lane[i];
-			            road->southbound->removeVehicle(i);
-                        // Turn right
-                        // road->southbound->lane[i].turnRight();
-			            v.turnRight();
-			            road->westbound->insertVehicle(v);
-                        }
-                        else{
-                            // Go straight
-                            road->southbound->lane[i].go();
-                        }
-                    }
-                    else{
-                        road->southbound->lane[i].turnRight();
-                    }
-                }
-            }
+         //            if(road->isIntersection(road->southbound->lane[i])){
+         //                // If the vehicle at index i of the southbound lane is in the intersection
+         //                if(road->southbound->lane[i].turnsRight() == true){
+			      //       Vehicle v = road->southbound->lane[i];
+			      //       road->southbound->removeVehicle(i);
+         //                // Turn right
+         //                // road->southbound->lane[i].turnRight();
+			      //       v.turnRight();
+			      //       road->westbound->insertVehicle(v);
+         //                }
+         //                else{
+         //                    // Go straight
+         //                    road->southbound->lane[i].go();
+         //                }
+         //            }
+         //            else{
+         //                road->southbound->lane[i].turnRight();
+         //            }
+         //        }
+         //    }
 
-            for(int i = 0; i < road->eastbound->lane.size(); i++){ 
+            // for(int i = 0; i < road->eastbound->lane.size(); i++){ 
 
-                if(road->eastbound->isSafeToMove(road->eastbound->lane[i], i, t, yellow_east_west)) {
+            //     if(road->eastbound->isSafeToMove(road->eastbound->lane[i], i, t, yellow_east_west)) {
 
-                    if(road->isIntersection(road->eastbound->lane[i])){
-                        // If the vehicle at index i of the eastbound lane is in the intersection
-                        if(road->eastbound->lane[i].turnsRight() == true){
-                            // Turn right
-                            // road->eastbound->lane[i].turnRight();
-			                Vehicle v = road->eastbound->lane[i];
-			                road->eastbound->removeVehicle(i);
-			                v.turnRight();
-			                road->southbound->insertVehicle(v);
-                        }
-                        else{
-                            // Go straight
-                            road->eastbound->lane[i].go();
-                        }
-                    }
-                    else{
-                        road->eastbound->lane[i].turnRight();
-                    }
-                }
-            }
+            //         if(road->isIntersection(road->eastbound->lane[i])){
+            //             // If the vehicle at index i of the eastbound lane is in the intersection
+            //             if(road->eastbound->lane[i].turnsRight() == true){
+            //                 // Turn right
+            //                 // road->eastbound->lane[i].turnRight();
+			         //        Vehicle v = road->eastbound->lane[i];
+			         //        road->eastbound->removeVehicle(i);
+			         //        v.turnRight();
+			         //        road->southbound->insertVehicle(v);
+            //             }
+            //             else{
+            //                 // Go straight
+            //                 road->eastbound->lane[i].go();
+            //             }
+            //         }
+            //         else{
+            //             road->eastbound->lane[i].turnRight();
+            //         }
+            //     }
+            // }
 
-            for(int i = 0; i < road->westbound->lane.size(); i++){ 
+            // for(int i = 0; i < road->westbound->lane.size(); i++){ 
 
-                if(road->westbound->isSafeToMove(road->westbound->lane[i], i, t, yellow_east_west)){
+            //     if(road->westbound->isSafeToMove(road->westbound->lane[i], i, t, yellow_east_west)){
 
-                    if(road->isIntersection(road->westbound->lane[i])){
-                        // If the vehicle at index i of the westbound lane is in the intersection
-                        if(road->westbound->lane[i].turnsRight() == true){
-                            // Turn right
-                            // road->westbound->lane[i].turnRight();
-			                Vehicle v = road->westbound->lane[i];
-			                road->westbound->removeVehicle(i);
-			                v.turnRight();
-			                road->northbound->insertVehicle(v);
-                        }
-                        else{
-                            // Go straight
-                            road->westbound->lane[i].go();
-                        }
-                    }
-                    else{
-                        road->westbound->lane[i].turnRight();
-                    }
-                }
-
-            //anim.setVehiclesNorthbound(nbound);
-            //anim.setVehiclesWestbound(wbound);
-            //anim.setVehiclesSouthbound(sbound);
-            //anim.setVehiclesEastbound(ebound);
-
-            //anim.draw(i);
-            }
+            //         if(road->isIntersection(road->westbound->lane[i])){
+            //             // If the vehicle at index i of the westbound lane is in the intersection
+            //             if(road->westbound->lane[i].turnsRight() == true){
+            //                 // Turn right
+            //                 // road->westbound->lane[i].turnRight();
+			         //        Vehicle v = road->westbound->lane[i];
+			         //        road->westbound->removeVehicle(i);
+			         //        v.turnRight();
+			         //        road->northbound->insertVehicle(v);
+            //             }
+            //             else{
+            //                 // Go straight
+            //                 road->westbound->lane[i].go();
+            //             }
+            //         }
+            //         else{
+            //             road->westbound->lane[i].turnRight();
+            //         }
+            //     }
+            // }
 
             t++;
         }      

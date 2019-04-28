@@ -7,7 +7,16 @@
 Vehicle::Vehicle() : VehicleBase() {}
 
 // deconstructor
-Vehicle::~Vehicle() {}
+Vehicle::~Vehicle() {
+    name = VehicleType::car;
+    size = -1;
+    frontXPos = -1;
+    frontYPos = -1;
+    backXPos = -1;
+    backYPos = -1;
+    direction = Direction::north;
+    willTurnRight = false;
+}
 
 // copy constructor
 Vehicle::Vehicle(const Vehicle& other) : VehicleBase(other) {
