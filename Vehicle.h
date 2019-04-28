@@ -2,24 +2,25 @@
 #define __VEHICLE_H__
 
 #include <vector>
+#include "VehicleBase.h"
 
 using namespace std;
 
 // listing of all vehicle types
-enum class VehicleType {
-    car,
-    suv,
-    truck,
-    undefined
-};
+// enum class VehicleType {
+//     car,
+//     suv,
+//     truck,
+//     undefined
+// };
 
-// listing of all possible directions vehicles can move
-enum class Direction {
-    north,
-    south,
-    east,
-    west
-};
+// // listing of all possible directions vehicles can move
+// enum class Direction {
+//     north,
+//     south,
+//     east,
+//     west
+// };
 
 class Vehicle {
        

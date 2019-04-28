@@ -63,15 +63,12 @@ void TrafficLight::updateState(int time){
 		// In the case that the traffic light being updated is for the east or west lanes
 			if(currentTime >= rLength + gLength && currentTime < cycleTime){
 				currentState = Color::yellow;
-				cout << "east_west yellow" << endl;
 			}
 			else if(currentTime >= rLength && currentTime < rLength + gLength){
 				currentState = Color::green;
-				cout << "east_west green" << endl;
 			}
 			else if(currentTime >= 0 && currentTime < rLength){
 				currentState = Color::red;
-				cout << "east_west red" << endl;
 			}
 				break;
 		case TrafficLightDirection::undefined: 

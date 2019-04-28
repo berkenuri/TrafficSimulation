@@ -17,6 +17,7 @@ class VehicleBase
       Direction   vehicleDirection;
 
    public:
+      VehicleBase();
       VehicleBase(VehicleType type, Direction originalDirection);
       VehicleBase(const VehicleBase& other);
       ~VehicleBase();
