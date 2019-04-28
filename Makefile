@@ -1,4 +1,5 @@
 EXECS = testSimulation
+
 OBJS = testSimulation.o TrafficLight.o Vehicle.o Lane.o Roadway.o Animator.o VehicleBase.o
 
 #### use next two lines for Mac
