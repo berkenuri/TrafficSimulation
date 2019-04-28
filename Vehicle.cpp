@@ -163,7 +163,7 @@ void Vehicle::turnRight() {
         backYPos = frontYPos;
         frontXPos += size;
 
-        direction = Direction::west;
+        direction = Direction::east;
     }
 
     else if (direction == Direction::south) {
@@ -171,7 +171,7 @@ void Vehicle::turnRight() {
         backYPos = frontYPos;
         frontXPos -= size;
 
-        direction = Direction::east;
+        direction = Direction::west;
     }
 
     else if (direction == Direction::west) {
