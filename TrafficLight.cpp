@@ -1,5 +1,15 @@
 #include "TrafficLight.h"
 
+TrafficLight::TrafficLight(){
+	// Default constructor 
+	gLength = -1;
+	yLength = -1;
+	rLength = -1;
+	currentState = Color::undefined;
+	myDirection = TrafficLightDirection::undefined;
+	cycleTime = -1;
+}
+
 TrafficLight::TrafficLight(int green, int yellow, int red, Color state, TrafficLightDirection direct){
 	// Creates an instance of TrafficLigth with pass by value arguments
 	gLength = green;
@@ -64,6 +74,9 @@ void TrafficLight::updateState(int time){
 				cout << "east_west red" << endl;
 			}
 				break;
+		case TrafficLightDirection::undefined: 
+		// Do nothing 
+			break;
 	}
 }
 
@@ -93,6 +106,9 @@ int TrafficLight::getTimeRemaining(int time){
 			else if(currentState == Color::red){
 				return gLength + yLength - 1 - currentTime;
 			}
+		case TrafficLightDirection::undefined:
+		// Return -1 and leave 
+			return -1;
 	}
 	return -1;
 }
