@@ -57,7 +57,7 @@ bool Lane::isSpace(Vehicle v)
  */
 void Lane::addVehicle(Vehicle v)
 {
-	if (isSpace())
+	if (isSpace(v))
 	{
 		lane.push_back(v);
 	}
@@ -119,9 +119,9 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
  *This method determines if a vehicle can move. It checks if there is a space in front of the vehicle. 
  It also checks if the light is green or yellow.
  */
-bool Lane::isSafeToMove(Vehicle v, index i)
+bool Lane::isSafeToMove(Vehicle v, int i)
 {
-	if (index == 0)
+	if (i == 0)
 	{
 		return true;
 	}

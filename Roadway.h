@@ -12,7 +12,7 @@ class Roadway {
 		Lane *westbound;
 
 		Roadway(TrafficLight lightns, TrafficLight lightew, int length);
-		bool isIntersection();
+		bool isIntersection(Vehicle v);
 };
 
 #endif
