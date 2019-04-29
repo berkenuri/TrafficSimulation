@@ -61,25 +61,6 @@ bool Lane::isSpace(Vehicle* v)
  */
 void Lane::addVehicle(Vehicle* v)
 {
-	/*
-	Direction d = v->getDirection();
-	switch(d)
-	{
-		case Direction::north:
-			cout << "North" << endl;
-			break;
-		case Direction::south:
-			cout << "South" << endl;
-			break;
-		case Direction::east:
-			cout << "East" << endl;
-			break;
-		case Direction::west:
-			cout << "West" << endl;
-			break;
-	}
-	cout << "Done adding vehicle" << endl;
-	*/
 	if (isSpace(v))
 	{
 		lane.push_back(v);
@@ -138,7 +119,10 @@ void Lane::insertVehicle(Vehicle* v)
 			}
 			break;
 	}
-
+	// If index is -1, then no vehicles in the lane are before the intersection
+	// Therefore, the turning vehicle goes in the back of the lane.
+	// If the index is not -1, then the turning vehicle is inserted into the lane
+	// at the appropriate spot
 	if (index != -1)
 	{
 		lane.insert(lane.begin() + index, v);
@@ -158,7 +142,7 @@ void Lane::insertVehicle(Vehicle* v)
  */
 void Lane::removeVehicle()
 {
-	// Remove first vehicle in list
+	// If no vehicles in lane, cannot remove any vehicles
 	if (lane.size() == 0)
 	{
 		return;
@@ -166,6 +150,7 @@ void Lane::removeVehicle()
 	Vehicle* first = lane[0];
         switch(first->getDirection())
 	{
+		// Check if vehicle has reached end of lane
 		case Direction::north:
 			if (first->getFrontYPos() > length*2 + 1)
 			{
@@ -227,7 +212,7 @@ bool Lane::crossSafely(Vehicle* v, int t, int tyellow)
 	// light changes to go through the intersection
 	if (light->getColor() == Color::yellow)
 	{
-		if(tn < light->getTimeRemaining(t))
+		if(tn > light->getTimeRemaining(t))
 		{
 			return false;
 		}
@@ -236,14 +221,10 @@ bool Lane::crossSafely(Vehicle* v, int t, int tyellow)
 	// yellow plus the time that the light will be yellow
 	else if (light->getColor() == Color::green)
 	{
-		if (tn < light->getTimeRemaining(t) + tyellow)
+		if (tn > light->getTimeRemaining(t) + tyellow)
 		{
 			return false;
 		}
-	}
-	else if (light->getColor() == Color::red)
-	{
-		return false;
 	}
 	return true;
 }
@@ -257,6 +238,45 @@ bool Lane::isSafeToMove(Vehicle* v, int i, int t, int tyellow)
 {
 	if (i == 0)
 	{
+		switch (v->getDirection())
+		{
+			case Direction::north:
+				if (v->getFrontYPos() == length - 1)
+				{
+					if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
+					{
+						return false;
+					}
+				}
+				break;
+			case Direction::south:
+				if (v->getFrontYPos() == length + 2)
+				{
+					if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
+					{
+						return false;
+					}
+				}
+				break;
+			case Direction::east:
+				if (v->getFrontXPos() == length - 1)
+				{
+					if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
+					{
+						return false;
+					}
+				}
+				break;
+			case Direction::west:
+				if (v->getFrontXPos() == length + 2)
+				{
+					if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
+					{
+						return false;
+					}
+				}
+				break;
+		}
 		return true;
 	}
 	Vehicle* previous_vehicle = lane[i-1];

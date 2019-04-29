@@ -89,7 +89,7 @@ int main(int argc, char *argv[]) {
 
         // Create an instance of Roadway that will internally create four instances of Lane
 
-        Roadway *road = new Roadway(*northLight, *eastLight, number_of_sections_before_intersection);
+        Roadway *road = new Roadway(northLight, eastLight, number_of_sections_before_intersection);
 
         int initialSeed = 8675309;
         // Creating an instance of the Mersenne Twister 19937 Generator
@@ -98,8 +98,7 @@ int main(int argc, char *argv[]) {
         uniform_real_distribution<double> rand_double(0.0, 1.0);
 
         // This while loop will execute until time runs out (the current time is equal to the maximum simulated time)
-	    // maximum_simulated_time
-	    char dummy;
+	char dummy;
         while(t < maximum_simulated_time){
 
         	// Update the state of each TrafficLight every clock tick 
@@ -200,11 +199,6 @@ int main(int argc, char *argv[]) {
             // Iterate through each lane attempting to move the Vehicles 
 
             for(int i = 0; i < road->northbound->lane.size(); i++){
-		    cout << "North" << endl;
-		    cout << road->northbound->lane[i] << endl;
-		    cout << road->northbound->lane[i]->getFrontYPos() << endl;
-		    cout << road->northbound->lane[i]->getBackYPos() << endl;
-
                 if(road->northbound->isSafeToMove(road->northbound->lane[i], i, t, yellow_north_south)) {
 
                     if(road->isIntersection(road->northbound->lane[i])) {
@@ -233,6 +227,7 @@ int main(int argc, char *argv[]) {
 	    //Remove first vehicle if it has reached edge of road
 	    road->northbound->removeVehicle();
 	    
+	    // Move cars in southbound lane
 	    for(int i = 0; i < road->southbound->lane.size(); i++){						
                 if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
 
@@ -259,6 +254,7 @@ int main(int argc, char *argv[]) {
 	    //Remove first vehicle if it has reached edge of road
 	    road->southbound->removeVehicle();
 
+	//move cars in eastbound lane
             for(int i = 0; i < road->eastbound->lane.size(); i++){ 
 
                 if(road->eastbound->isSafeToMove(road->eastbound->lane[i], i, t, yellow_east_west)) {
@@ -284,7 +280,9 @@ int main(int argc, char *argv[]) {
                 }
             }
 	    //Remove first vehicle if it has reached edge of road
-	road->eastbound->removeVehicle();	
+	road->eastbound->removeVehicle();
+
+	// Move cars in westbound lane
             for(int i = 0; i < road->westbound->lane.size(); i++){ 
 
                 if(road->westbound->isSafeToMove(road->westbound->lane[i], i, t, yellow_east_west)){
@@ -312,7 +310,7 @@ int main(int argc, char *argv[]) {
 	    //Remove first vehicle if it has reached edge of road
 	    road->westbound->removeVehicle();
 
-	    		
+	    // Get vector of vehicleBase pointers to use in Animator class		
 	    vector<VehicleBase*> nbound = road->northbound->pointerLane();
 	    vector<VehicleBase*> sbound = road->southbound->pointerLane();
 	    vector<VehicleBase*> ebound = road->eastbound->pointerLane();
@@ -321,10 +319,8 @@ int main(int argc, char *argv[]) {
 	    anim.setVehiclesSouthbound(sbound);
 	    anim.setVehiclesEastbound(ebound);
 	    anim.setVehiclesWestbound(wbound);
-	    cout << road->northbound->lane.size() << endl;
-	    cout << road->southbound->lane.size() << endl;
-	    cout << road->eastbound->lane.size() << endl;
-	    cout << road->westbound->lane.size() << endl;
+	    
+	    // Get TrafficLight color for Animator class
 	    switch(northLight->getColor())
 	    {
 		    case Color::green:
