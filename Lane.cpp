@@ -63,16 +63,23 @@ void Lane::addVehicle(Vehicle v)
 {
 	cout << "Adding vehicle" << endl;
 	cout << v.getFrontYPos() << endl;
-	switch(v.getDirection())
+	cout << static_cast<typename underlying_type<Direction>::type>(v.getDirection()) << endl;
+	cout << "Print enum" << endl;
+	Direction d = v.getDirection();
+	switch(d)
 	{
 		case Direction::north:
 			cout << "North" << endl;
+			break;
 		case Direction::south:
 			cout << "South" << endl;
+			break;
 		case Direction::east:
 			cout << "East" << endl;
+			break;
 		case Direction::west:
 			cout << "West" << endl;
+			break;
 	}
 	cout << "Done adding vehicle" << endl;
 	if (isSpace(v))
@@ -88,6 +95,7 @@ void Lane::addVehicle(Vehicle v)
  */
 void Lane::insertVehicle(Vehicle v)
 {
+	cout << "Right turn? " << endl;
 	int index = -1;
 	
 	switch (v.getDirection())
@@ -101,6 +109,7 @@ void Lane::insertVehicle(Vehicle v)
 					break;
 				}
 			}
+			break;
 		case Direction::south:
 			for (int i = 0; i < lane.size(); i++)
 			{
@@ -110,6 +119,7 @@ void Lane::insertVehicle(Vehicle v)
 					break;
 				}
 			}
+			break;
 		case Direction::east:
 			for (int i = 0; i < lane.size(); i++)
 			{
@@ -119,6 +129,7 @@ void Lane::insertVehicle(Vehicle v)
 					break;
 				}
 			}
+			break;
 		case Direction::west:
 			for (int i = 0; i < lane.size(); i++)
 			{
@@ -128,6 +139,7 @@ void Lane::insertVehicle(Vehicle v)
 					break;
 				}
 			}
+			break;
 	}
 
 	if (index != -1)
@@ -229,7 +241,8 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 				{
 					return false;
 				}
-			}			
+			}
+			break;			
 		case Direction::south:
 			if (previous_vehicle.getBackYPos() + 1 == v.getFrontYPos())
 			{
@@ -242,6 +255,7 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 					return false;
 				}
 			}
+			break;
 		case Direction::east:
 			if (previous_vehicle.getBackXPos() - 1 == v.getFrontXPos())
 			{
@@ -254,6 +268,7 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 					return false;
 				}
 			}
+			break;
 		case Direction:: west:
 			if (previous_vehicle.getBackXPos() + 1 == v.getFrontXPos())
 			{
@@ -266,6 +281,7 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 					return false;
 				}
 			}
+			break;
 	}
 	return true;
 }
@@ -276,6 +292,7 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
  */
 vector<VehicleBase*> Lane::pointerLane()
 {
+	cout << "Start of pointerLane" << endl;
 	vector<VehicleBase*> vp(2*length + 2, nullptr);
 	if (lane.size() == 0)
 	{
@@ -286,21 +303,23 @@ vector<VehicleBase*> Lane::pointerLane()
 	switch (v.getDirection())
 	{
 		case Direction::north:
+			cout << "North p" << endl;
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle w = *it;
 				Vehicle* wptr = &w;
 				fill(vp.begin() + w.getBackYPos(), vp.begin() + w.getFrontYPos(), wptr);
 			}
+			break;
 		case Direction::south:
+			cout << "South p " << endl;
 			for (it = lane.begin(); it != lane.end(); it++)
-			{
-				cout << "Adding pointer" << endl;
-				Vehicle w = *it;
-				cout << "Front y pos of pointer: " << w.getFrontYPos() << endl;
+			{	
+				Vehicle w = *it;	
 				Vehicle* wptr = &w;
 				fill(vp.begin() + w.getFrontYPos(), vp.begin() + w.getBackYPos(), wptr);
 			}
+			break;
 		case Direction::east:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
@@ -308,6 +327,7 @@ vector<VehicleBase*> Lane::pointerLane()
 				Vehicle* wptr = &w;
 				fill(vp.begin() + w.getBackXPos(), vp.begin() + w.getFrontXPos(), wptr);
 			}
+			break;
 		case Direction::west:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
@@ -315,7 +335,9 @@ vector<VehicleBase*> Lane::pointerLane()
 				Vehicle* wptr = &w;
 				fill(vp.begin() + w.getFrontXPos(), vp.begin() + w.getBackXPos(), wptr);
 			}
+			break;
 	}
+	cout << "returning pointer lane" << endl;
 	return vp;	
 }
 

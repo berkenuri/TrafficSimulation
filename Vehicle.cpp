@@ -4,11 +4,7 @@
 #include "Vehicle.h"
 
 // default constructor
-Vehicle::Vehicle() : VehicleBase() {}
-
-// deconstructor
-/*
-Vehicle::~Vehicle() {
+Vehicle::Vehicle() {
     name = VehicleType::car;
     size = -1;
     frontXPos = -1;
@@ -18,7 +14,7 @@ Vehicle::~Vehicle() {
     direction = Direction::north;
     willTurnRight = false;
 }
-*/
+
 
 Vehicle::~Vehicle() {}
 

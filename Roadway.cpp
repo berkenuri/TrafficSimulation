@@ -14,7 +14,7 @@ Roadway::Roadway(TrafficLight lightns, TrafficLight lightew, int length)
 Roadway::~Roadway() 
 {
 }
-
+/*
 bool Roadway::isIntersection(Vehicle v)
 {
 	int size = v.getSize();
@@ -43,7 +43,7 @@ bool Roadway::isIntersection(Vehicle v)
 	}
 	return false;
 }
-/*
+*/
 bool Roadway::isIntersection(Vehicle v)
 {
 	switch (v.getDirection())
@@ -71,4 +71,4 @@ bool Roadway::isIntersection(Vehicle v)
 	}
 
 }
-*/
+

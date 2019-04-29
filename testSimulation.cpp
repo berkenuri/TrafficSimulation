@@ -160,8 +160,8 @@ int main(int argc, char *argv[]) {
                if(newVehicle >= 0.0 && newVehicle < proportion_of_cars){
                    // Create a car northbound where the size is hardcoded as 2
                     v = Vehicle(VehicleType::car, number_of_sections_before_intersection + 1, totalLaneLength - 2, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightCar);
-		    cout << v.getFrontYPos() << endl;
-		    cout << "Making south car" << endl;
+	
+		
                     //vb = VehicleBase(VehicleType::car, Direction::south);
                 }
                 else if(newVehicle > proportion_of_cars && newVehicle < proportion_of_SUVs){
@@ -174,13 +174,13 @@ int main(int argc, char *argv[]) {
                     v = Vehicle(VehicleType::truck, number_of_sections_before_intersection + 1, totalLaneLength - 4, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightTruck);
                     //vb = VehicleBase(VehicleType::truck, Direction::south);
                 }
-		cout << "Time of adding car: " << t << endl;
+
                 road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
         	    //sbound[0] = &vb;
-		cout << "Adding vehicle with y positions" << endl;
-		cout << v.getFrontYPos() << endl;
-		cout << v.getBackYPos() << endl;
-		cout << "==================" << endl;
+
+
+
+
             }
         	else if(newVehicle >= prob_new_vehicle_southbound && newVehicle < prob_new_vehicle_eastbound){
         		// Create a new Vehicle eastbound
@@ -201,12 +201,6 @@ int main(int argc, char *argv[]) {
                 }
                 road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
         	    //ebound[0] = &vb;
-		cout << "Adding to eastbound" << endl;
-		cout << v.getFrontXPos() << endl;
-		cout << v.getBackXPos() << endl;
-		cout << v.getFrontYPos() << endl;
-		cout << v.getBackYPos() << endl;
-		cout << "???????????????????????" << endl;
             }
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
         		// Create a new Vehicle westbound
@@ -230,8 +224,10 @@ int main(int argc, char *argv[]) {
             }
 	    cout << "Before movement" << endl;
 	    cout << t << endl;
+	    cout << "North size: " << road->northbound->lane.size() << endl;
 	    cout << "South size: " << road->southbound->lane.size() << endl;
 	    cout << "East size: " << road->eastbound->lane.size() << endl;
+	    cout << "West size: " << road->westbound->lane.size() << endl;
 	    cout << "******************************" << endl;
 
             // Iterate through each lane attempting to move the Vehicles 
@@ -299,6 +295,7 @@ int main(int argc, char *argv[]) {
 
                     if(road->isIntersection(road->eastbound->lane[i])){
                         // If the vehicle at index i of the eastbound lane is in the intersection
+			cout << "Is in intersection? " << endl;
                         if(road->eastbound->lane[i].turnsRight() == true){
                             // Turn right
                             // road->eastbound->lane[i].turnRight();
@@ -371,10 +368,13 @@ int main(int argc, char *argv[]) {
 			    cout << "Green light" << endl;
 			    anim.setLightNorthSouth(LightColor::green);
 			    cout << "Still green?" << endl;
+			    break;
 		    case Color::yellow:
 			    anim.setLightNorthSouth(LightColor::yellow);
+			    break;
 		    case Color::red:
 			    anim.setLightNorthSouth(LightColor::red);
+			    break;
 	    }
 
 	    switch(eastLight->getColor())
