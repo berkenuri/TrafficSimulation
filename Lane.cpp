@@ -292,7 +292,6 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
  */
 vector<VehicleBase*> Lane::pointerLane()
 {
-	cout << "Start of pointerLane" << endl;
 	vector<VehicleBase*> vp(2*length + 2, nullptr);
 	if (lane.size() == 0)
 	{
@@ -300,44 +299,57 @@ vector<VehicleBase*> Lane::pointerLane()
 	}
 	Vehicle v = lane[0];
 	vector<Vehicle>::iterator it;
+	VehicleBase n;
+	VehicleBase s;
+	VehicleBase e;
+	VehicleBase we;
 	switch (v.getDirection())
 	{
 		case Direction::north:
-			cout << "North p" << endl;
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle w = *it;
-				Vehicle* wptr = &w;
-				fill(vp.begin() + w.getBackYPos(), vp.begin() + w.getFrontYPos(), wptr);
+				n = VehicleBase(w.getVehicleType(), w.getDirection());
+				for (int j = w.getBackYPos(); j <= w.getFrontYPos(); j++)
+				{
+					vp[j] = &n;
+				}
 			}
 			break;
 		case Direction::south:
-			cout << "South p " << endl;
 			for (it = lane.begin(); it != lane.end(); it++)
 			{	
 				Vehicle w = *it;	
-				Vehicle* wptr = &w;
-				fill(vp.begin() + w.getFrontYPos(), vp.begin() + w.getBackYPos(), wptr);
+				s = VehicleBase(w.getVehicleType(), w.getDirection());
+				for (int j = w.getFrontYPos(); j <= w.getBackYPos(); j++)
+				{
+					vp[j] = &s;
+				}
 			}
 			break;
 		case Direction::east:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle w = *it;
-				Vehicle* wptr = &w;
-				fill(vp.begin() + w.getBackXPos(), vp.begin() + w.getFrontXPos(), wptr);
+				e = VehicleBase(w.getVehicleType(), w.getDirection());
+				for (int j = w.getBackXPos(); j <= w.getFrontXPos(); j++)
+				{
+					vp[j] = &e;
+				}
 			}
 			break;
 		case Direction::west:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle w = *it;
-				Vehicle* wptr = &w;
-				fill(vp.begin() + w.getFrontXPos(), vp.begin() + w.getBackXPos(), wptr);
+				we = VehicleBase(w.getVehicleType(), w.getDirection());
+				for (int j = w.getFrontXPos(); j <= w.getBackXPos(); j++)
+				{
+					vp[j] = &we;
+				}
 			}
 			break;
 	}
-	cout << "returning pointer lane" << endl;
 	return vp;	
 }
 

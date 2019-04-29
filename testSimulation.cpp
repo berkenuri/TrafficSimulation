@@ -140,6 +140,7 @@ int main(int argc, char *argv[]) {
                     // Create a new truck northbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, number_of_sections_before_intersection + 2, 3, number_of_sections_before_intersection + 2, 0, Direction::north, turnRightTruck);
                 }
+		v.setIDNumber(t);
                 road->northbound->addVehicle(v); // Add the new Vehicle to the northbound lane. If there is no space, it will not be added
         	}
 
@@ -157,7 +158,7 @@ int main(int argc, char *argv[]) {
                     // Create a new truck northbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, number_of_sections_before_intersection + 1, totalLaneLength - 4, number_of_sections_before_intersection + 1, totalLaneLength - 1, Direction::south, turnRightTruck);
                 }
-
+		v.setIDNumber(t);
                 road->southbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
 
             }
@@ -175,6 +176,7 @@ int main(int argc, char *argv[]) {
                     // Create a new truck eastbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, 3, number_of_sections_before_intersection + 1, 0, number_of_sections_before_intersection + 1, Direction::east, turnRightTruck);
                 }
+		v.setIDNumber(t);
                 road->eastbound->addVehicle(v); // Add the new Vehicle to the eastbound lane. If there is no space, it will not be added
             }
         	else if(newVehicle >= prob_new_vehicle_eastbound && newVehicle < prob_new_vehicle_westbound){
@@ -191,15 +193,9 @@ int main(int argc, char *argv[]) {
                     // Create a new truck eastbound where the size is hardcoded as 4
                     v = Vehicle(VehicleType::truck, totalLaneLength - 4, number_of_sections_before_intersection + 2, totalLaneLength - 1, number_of_sections_before_intersection + 2, Direction::west, turnRightTruck);
                 }
+		v.setIDNumber(t);
                 road->westbound->addVehicle(v); // Add the new Vehicle to the westbound lane. If there is no space, it will not be added
             }
-	    cout << "Before movement" << endl;
-	    cout << t << endl;
-	    cout << "North size: " << road->northbound->lane.size() << endl;
-	    cout << "South size: " << road->southbound->lane.size() << endl;
-	    cout << "East size: " << road->eastbound->lane.size() << endl;
-	    cout << "West size: " << road->westbound->lane.size() << endl;
-	    cout << "******************************" << endl;
 
             // Iterate through each lane attempting to move the Vehicles 
 
@@ -229,12 +225,8 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
-	    cout << "Before moving south" << endl;
-	    cout << "Size of south lane: " << road->southbound->lane.size() << endl;
-	    cout << "===============---------------===========" << endl;
-
-            for(int i = 0; i < road->southbound->lane.size(); i++){
-		    cout << "Moving south" << endl;						
+	    
+	    for(int i = 0; i < road->southbound->lane.size(); i++){						
                 if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
 
                     if(road->isIntersection(road->southbound->lane[i])){
@@ -253,12 +245,10 @@ int main(int argc, char *argv[]) {
                         }
                     }
                     else{
-                        road->southbound->lane[i].turnRight();
+                        road->southbound->lane[i].go();
                     }
                 }
             }
-
-	    cout << "Size of east lane: "<< road->eastbound->lane.size() << endl;
 
             for(int i = 0; i < road->eastbound->lane.size(); i++){ 
 
@@ -266,7 +256,6 @@ int main(int argc, char *argv[]) {
 
                     if(road->isIntersection(road->eastbound->lane[i])){
                         // If the vehicle at index i of the eastbound lane is in the intersection
-			cout << "Is in intersection? " << endl;
                         if(road->eastbound->lane[i].turnsRight() == true){
                             // Turn right
                             // road->eastbound->lane[i].turnRight();
@@ -281,7 +270,7 @@ int main(int argc, char *argv[]) {
                         }
                     }
                     else{
-                        road->eastbound->lane[i].turnRight();
+                        road->eastbound->lane[i].go();
                     }
                 }
             }
@@ -306,21 +295,12 @@ int main(int argc, char *argv[]) {
                         }
                     }
                     else{
-                        road->westbound->lane[i].turnRight();
+                        road->westbound->lane[i].go();
                     }
                 }
             }
 
-	    if(road->southbound->lane.size() == 1)
-	    {
-		    cout << "First vehicle" << endl;
-		    cout << road->southbound->lane.begin()->getVehicleID() << endl;
-		    cout << road->southbound->lane.begin()->getFrontYPos() << endl;
-		    cout << road->southbound->lane.begin()->getBackYPos() << endl;
-		    cout << road->southbound->lane.begin()->getSize() << endl;
-		    cout << "After first vehicle" << endl;
-	    }
-		
+	    		
 	    vector<VehicleBase*> nbound = road->northbound->pointerLane();
 	    vector<VehicleBase*> sbound = road->southbound->pointerLane();
 	    vector<VehicleBase*> ebound = road->eastbound->pointerLane();
@@ -336,9 +316,7 @@ int main(int argc, char *argv[]) {
 	    switch(northLight->getColor())
 	    {
 		    case Color::green:
-			    cout << "Green light" << endl;
 			    anim.setLightNorthSouth(LightColor::green);
-			    cout << "Still green?" << endl;
 			    break;
 		    case Color::yellow:
 			    anim.setLightNorthSouth(LightColor::yellow);
@@ -358,13 +336,7 @@ int main(int argc, char *argv[]) {
 			    anim.setLightEastWest(LightColor::red);
 	    }
 
-	    cout << "------------------------------------" << endl;
-	    for (int i = 0; i < 18; i++)
-	    {
-		    cout << sbound[i] << endl;
-	    }
-	    cout << "-----------------------------------" << endl;
-				
+	    				
 	    anim.draw(t);
 
 	    cin.get(dummy);

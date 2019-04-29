@@ -21,4 +21,9 @@ VehicleBase::VehicleBase(const VehicleBase& other)
 
 VehicleBase::~VehicleBase() {}
 
+void VehicleBase::setIDNumber(int ID)
+{
+	vehicleID = ID;
+}
+
 #endif
