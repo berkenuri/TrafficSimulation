@@ -109,7 +109,8 @@ int main(int argc, char *argv[]) {
 
         	double newVehicle = rand_double(generator);
 
-            int totalLaneLength = (number_of_sections_before_intersection * 2) + 2; // The total length of one lane will be the number of sections before the intersection multiplied two and added to two (the length of the intersection)
+            int totalLaneLength = (number_of_sections_before_intersection * 2) + 2;
+	    // The total length of one lane will be the number of sections before the intersection multiplied two and added to two (the length of the intersection)
 
             bool turnRightCar = false;      // Boolean value indicating whether or not the car will turn right
             bool turnRightSUV = false;      // Boolean value indicating whether or not the SUV will turn right

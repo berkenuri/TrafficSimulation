@@ -8,7 +8,6 @@ Lane::Lane(TrafficLight* light, int length)
 {
 	this->light = light;
 	this->length = length;
-	//vector<Vehicle*> lane(length*2 +2, nullptr);
 }
 
 /*
@@ -20,11 +19,12 @@ Lane::Lane(TrafficLight* light, int length)
 bool Lane::isSpace(Vehicle* v)
 {
 	int size = v->getSize();
-	// Gets last vehicle in lane
+	// If the lane is empty, there is space for a new vehicle
 	if (lane.size() == 0)
 	{
 		return true;
 	}
+	// Last vehicle in lane
 	Vehicle* last_vehicle = lane.back();
 
 	// Checks if last vehicle occupies the last position in the lane.
@@ -75,7 +75,8 @@ void Lane::addVehicle(Vehicle* v)
 void Lane::insertVehicle(Vehicle* v)
 {
 	int index = -1;
-	
+
+	// Get index of first vehicle in lane before the light/intersection.	
 	switch (v->getDirection())
 	{
 		case Direction::north:
@@ -231,11 +232,15 @@ bool Lane::crossSafely(Vehicle* v, int t, int tyellow)
 
 /*
  *This method determines if a vehicle can move. It checks if there is a space in front of the vehicle. 
- It also checks if the light is green or yellow.
+ If the vehicle is just before the intersection, this method also checks if the light is red or if 
+ there is not enough time for the vehicle to make it through the intersection before the light turns
+ red. .
  */
 
 bool Lane::isSafeToMove(Vehicle* v, int i, int t, int tyellow)
 {
+	// If the vehicle is first in the lane, don't need to check any preceding cars
+	// Only check if the vehicle is at the light.
 	if (i == 0)
 	{
 		switch (v->getDirection())
@@ -279,6 +284,8 @@ bool Lane::isSafeToMove(Vehicle* v, int i, int t, int tyellow)
 		}
 		return true;
 	}
+	// If the vehicle is not first in the lane, then we also need to check that its path 
+	// is not blocked by any other vehicles.
 	Vehicle* previous_vehicle = lane[i-1];
 	switch (previous_vehicle->getDirection())
 	{
@@ -340,7 +347,9 @@ bool Lane::isSafeToMove(Vehicle* v, int i, int t, int tyellow)
 
 /*
  * This method returns a vector of vehicle pointers that corresponds to the vector of vehicles lane.
- * This is done because the Animator class requires a vector of vehicle pointers with size 2*length + 
+ * This is done because the Animator class requires a vector of vehicle pointers with size 2*length + 2.
+ * For each vehicle in the lane, a pointer to that vehicle is placed in each section of the lane that the
+ * vehicle occupies.
  */
 vector<VehicleBase*> Lane::pointerLane()
 {
@@ -351,66 +360,54 @@ vector<VehicleBase*> Lane::pointerLane()
 	}
 	Vehicle* v = lane[0];
 	vector<Vehicle*>::iterator it;
-	/*
-	VehicleBase n;
-	VehicleBase s;
-	VehicleBase e;
-	VehicleBase we;
-	int count = 0;
-	*/
 	switch (v->getDirection())
 	{
 		case Direction::north:
+			// For each vehicle in the lane
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle* w = *it;
-				//n = VehicleBase(w.getVehicleType(), w.getDirection());
-				//n.setIDNumber(count);
+				// For each section occupied by the vehicle
 				for (int j = w->getBackYPos(); j <= w->getFrontYPos(); j++)
 				{
 					vp[j] = w;
 				}
-				//count++;
 			}
 			break;
 		case Direction::south:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{	
 				Vehicle* w = *it;	
-				//s = VehicleBase(w.getVehicleType(), w.getDirection());
-				//s.setIDNumber(count);
+				
 				for (int j = w->getFrontYPos(); j <= w->getBackYPos(); j++)
 				{
 					vp[j] = w;
 				}
-				//count++;
 			}
+			// We need to reverse the vector because the Animator class will reverse
+			// it again. This means that the lane will be going in the correct direction.
 			reverse(vp.begin(), vp.end());
 			break;
 		case Direction::east:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle* w = *it;
-				//e = VehicleBase(w.getVehicleType(), w.getDirection());
-				//e.setIDNumber(count);
+				
 				for (int j = w->getBackXPos(); j <= w->getFrontXPos(); j++)
 				{
 					vp[j] = w;
 				}
-				//count++;
 			}
 			break;
 		case Direction::west:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
 				Vehicle* w = *it;
-				//we = VehicleBase(w.getVehicleType(), w.getDirection());
-				//we.setIDNumber(count);
+				
 				for (int j = w->getFrontXPos(); j <= w->getBackXPos(); j++)
 				{
 					vp[j] = w;
 				}
-				//count++;
 			}
 			reverse(vp.begin(), vp.end());
 			break;
