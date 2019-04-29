@@ -266,7 +266,7 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 			{
 				return false;
 			}
-			else if (v.getFrontYPos() == length)
+			else if (v.getFrontYPos() == length-1)
 			{
 				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
 				{
@@ -292,7 +292,7 @@ bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
 			{
 				return false;
 			}
-			else if (v.getFrontXPos() == length)
+			else if (v.getFrontXPos() == length-1)
 			{
 				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
 				{
