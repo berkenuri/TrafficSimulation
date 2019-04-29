@@ -53,22 +53,27 @@ bool Roadway::isIntersection(Vehicle v)
 			{
 				return true;
 			}
+			break;
 		case Direction::south:
 			if (v.getFrontYPos() == length + 1)
 			{
 				return true;
 			}
+			break;
 		case Direction::east:
 			if (v.getFrontXPos() == length)
 			{
 				return true;
 			}
+			break;
 		case Direction::west:
 			if (v.getFrontXPos() == length + 1)
 			{
 				return true;
 			}
+			break;
 	}
+	return false;
 
 }
 

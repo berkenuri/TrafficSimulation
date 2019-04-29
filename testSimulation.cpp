@@ -225,6 +225,8 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
+	    //Remove first vehicle if it has reached edge of road
+	    road->northbound->removeVehicle();
 	    
 	    for(int i = 0; i < road->southbound->lane.size(); i++){						
                 if(road->southbound->isSafeToMove(road->southbound->lane[i], i, t, yellow_north_south)){
@@ -249,6 +251,8 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
+	    //Remove first vehicle if it has reached edge of road
+	    road->southbound->removeVehicle();
 
             for(int i = 0; i < road->eastbound->lane.size(); i++){ 
 
@@ -274,7 +278,8 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
-
+	    //Remove first vehicle if it has reached edge of road
+	road->eastbound->removeVehicle();	
             for(int i = 0; i < road->westbound->lane.size(); i++){ 
 
                 if(road->westbound->isSafeToMove(road->westbound->lane[i], i, t, yellow_east_west)){
@@ -299,6 +304,8 @@ int main(int argc, char *argv[]) {
                     }
                 }
             }
+	    //Remove first vehicle if it has reached edge of road
+	    road->westbound->removeVehicle();
 
 	    		
 	    vector<VehicleBase*> nbound = road->northbound->pointerLane();
@@ -330,10 +337,13 @@ int main(int argc, char *argv[]) {
 	    {
 		    case Color::green:
 			    anim.setLightEastWest(LightColor::green);
+			    break;
 	            case Color::yellow:
 			    anim.setLightEastWest(LightColor::yellow);
+			    break;
 		    case Color::red:
 			    anim.setLightEastWest(LightColor::red);
+			    break;
 	    }
 
 	    				

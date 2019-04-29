@@ -162,8 +162,39 @@ void Lane::insertVehicle(Vehicle v)
 void Lane::removeVehicle()
 {
 	// Remove first vehicle in list
-	
-	lane.erase(lane.begin());
+	if (lane.size() == 0)
+	{
+		return;
+	}
+	Vehicle first = lane[0];
+        switch(first.getDirection())
+	{
+		case Direction::north:
+			if (first.getFrontYPos() > length*2 + 1)
+			{
+				lane.erase(lane.begin());
+			}
+			break;
+		case Direction::south:
+			if (first.getFrontYPos() < 0)
+			{
+				lane.erase(lane.begin());
+			}
+			break;
+		case Direction::east:
+			if (first.getFrontXPos() > length*2 + 1)
+			{
+				lane.erase(lane.begin());
+			}
+			break;
+		case Direction::west:
+			if (first.getFrontXPos() < 0)
+			{
+				lane.erase(lane.begin());
+			}
+			break;
+	}
+
 }
 
 /*
@@ -303,6 +334,7 @@ vector<VehicleBase*> Lane::pointerLane()
 	VehicleBase s;
 	VehicleBase e;
 	VehicleBase we;
+	int count = 0;
 	switch (v.getDirection())
 	{
 		case Direction::north:
@@ -310,10 +342,14 @@ vector<VehicleBase*> Lane::pointerLane()
 			{
 				Vehicle w = *it;
 				n = VehicleBase(w.getVehicleType(), w.getDirection());
+				n.setIDNumber(count);
 				for (int j = w.getBackYPos(); j <= w.getFrontYPos(); j++)
 				{
 					vp[j] = &n;
+					cout << "North pointer lane" << endl;
+					cout << vp[j]->getVehicleID() << endl;
 				}
+				count++;
 			}
 			break;
 		case Direction::south:
@@ -321,10 +357,12 @@ vector<VehicleBase*> Lane::pointerLane()
 			{	
 				Vehicle w = *it;	
 				s = VehicleBase(w.getVehicleType(), w.getDirection());
+				s.setIDNumber(count);
 				for (int j = w.getFrontYPos(); j <= w.getBackYPos(); j++)
 				{
 					vp[j] = &s;
 				}
+				count++;
 			}
 			break;
 		case Direction::east:
@@ -332,10 +370,12 @@ vector<VehicleBase*> Lane::pointerLane()
 			{
 				Vehicle w = *it;
 				e = VehicleBase(w.getVehicleType(), w.getDirection());
+				e.setIDNumber(count);
 				for (int j = w.getBackXPos(); j <= w.getFrontXPos(); j++)
 				{
 					vp[j] = &e;
 				}
+				count++;
 			}
 			break;
 		case Direction::west:
@@ -343,10 +383,12 @@ vector<VehicleBase*> Lane::pointerLane()
 			{
 				Vehicle w = *it;
 				we = VehicleBase(w.getVehicleType(), w.getDirection());
+				we.setIDNumber(count);
 				for (int j = w.getFrontXPos(); j <= w.getBackXPos(); j++)
 				{
 					vp[j] = &we;
 				}
+				count++;
 			}
 			break;
 	}
