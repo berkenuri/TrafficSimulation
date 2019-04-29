@@ -8,20 +8,20 @@ using namespace std;
 
 class Lane {
 	private:
-		TrafficLight light;
+		TrafficLight* light;
 		int length;
-		bool isSpace(Vehicle v);
+		bool isSpace(Vehicle* v);
 	public:
-		vector<Vehicle> lane;
-		Lane(TrafficLight light, int length);
+		vector<Vehicle*> lane;
+		Lane(TrafficLight* light, int length);
 		~Lane();
 		vector<VehicleBase*> pointerLane();
-		void addVehicle(Vehicle v);
+		void addVehicle(Vehicle* v);
 		void removeVehicle();
 		void removeVehicle(int i);
-		void insertVehicle(Vehicle v);
-		bool crossSafely(Vehicle v, int t, int tyellow);
-		bool isSafeToMove(Vehicle v, int index, int t, int tyellow);
+		void insertVehicle(Vehicle* v);
+		bool crossSafely(Vehicle* v, int t, int tyellow);
+		bool isSafeToMove(Vehicle* v, int index, int t, int tyellow);
 };
 
 #endif

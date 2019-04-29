@@ -4,10 +4,10 @@ using namespace std;
 
 Roadway::Roadway(TrafficLight lightns, TrafficLight lightew, int length)
 {
-	northbound = new Lane(lightns, length);
-	southbound = new Lane(lightns, length);
-	eastbound = new Lane(lightew, length);
-	westbound = new Lane(lightew, length);
+	northbound = new Lane(&lightns, length);
+	southbound = new Lane(&lightns, length);
+	eastbound = new Lane(&lightew, length);
+	westbound = new Lane(&lightew, length);
 	this->length = length;
 }
 
@@ -44,30 +44,30 @@ bool Roadway::isIntersection(Vehicle v)
 	return false;
 }
 */
-bool Roadway::isIntersection(Vehicle v)
+bool Roadway::isIntersection(Vehicle* v)
 {
-	switch (v.getDirection())
+	switch (v->getDirection())
 	{
 		case Direction::north:
-			if (v.getFrontYPos() == length)
+			if (v->getFrontYPos() == length)
 			{
 				return true;
 			}
 			break;
 		case Direction::south:
-			if (v.getFrontYPos() == length + 1)
+			if (v->getFrontYPos() == length + 1)
 			{
 				return true;
 			}
 			break;
 		case Direction::east:
-			if (v.getFrontXPos() == length)
+			if (v->getFrontXPos() == length)
 			{
 				return true;
 			}
 			break;
 		case Direction::west:
-			if (v.getFrontXPos() == length + 1)
+			if (v->getFrontXPos() == length + 1)
 			{
 				return true;
 			}

@@ -4,7 +4,7 @@
  *Constructor for the Lane class. Takes the length of the lane and the corresponding
  traffic light as parameters.
  */
-Lane::Lane(TrafficLight light, int length)
+Lane::Lane(TrafficLight* light, int length)
 {
 	this->light = light;
 	this->length = length;
@@ -17,37 +17,37 @@ Lane::Lane(TrafficLight light, int length)
  vehicle in the lane is occupying the last spot in the lane. If it is,
  then there is no room for a new vehicle.
  */
-bool Lane::isSpace(Vehicle v)
+bool Lane::isSpace(Vehicle* v)
 {
-	int size = v.getSize();
+	int size = v->getSize();
 	// Gets last vehicle in lane
 	if (lane.size() == 0)
 	{
 		return true;
 	}
-	Vehicle last_vehicle = lane.back();
+	Vehicle* last_vehicle = lane.back();
 
 	// Checks if last vehicle occupies the last position in the lane.
 	// It does this by checking the coordinates of the last vehicle.
-	switch(last_vehicle.getDirection())
+	switch(last_vehicle->getDirection())
 	{
 		case Direction::north:
-			if (last_vehicle.getBackYPos() < size)
+			if (last_vehicle->getBackYPos() < size)
 			{
 				return false;
 			}
 		case Direction::south:
-			if (last_vehicle.getBackYPos() > length*2 + 1 - size)
+			if (last_vehicle->getBackYPos() > length*2 + 1 - size)
 			{
 				return false;
 			}
 		case Direction::east:
-			if (last_vehicle.getBackXPos() < size)
+			if (last_vehicle->getBackXPos() < size)
 			{
 				return false;
 			}
 		case Direction::west:
-			if (last_vehicle.getBackXPos() >= length*2 + 1 - size)
+			if (last_vehicle->getBackXPos() >= length*2 + 1 - size)
 			{
 				return false;
 			}
@@ -59,13 +59,10 @@ bool Lane::isSpace(Vehicle v)
  *This method adds a vehicle to a lane if there is space. The vehicle is added to the 
  end of the lane.
  */
-void Lane::addVehicle(Vehicle v)
+void Lane::addVehicle(Vehicle* v)
 {
-	cout << "Adding vehicle" << endl;
-	cout << v.getFrontYPos() << endl;
-	cout << static_cast<typename underlying_type<Direction>::type>(v.getDirection()) << endl;
-	cout << "Print enum" << endl;
-	Direction d = v.getDirection();
+	/*
+	Direction d = v->getDirection();
 	switch(d)
 	{
 		case Direction::north:
@@ -82,6 +79,7 @@ void Lane::addVehicle(Vehicle v)
 			break;
 	}
 	cout << "Done adding vehicle" << endl;
+	*/
 	if (isSpace(v))
 	{
 		lane.push_back(v);
@@ -93,17 +91,16 @@ void Lane::addVehicle(Vehicle v)
  of the first vehicle in the lane before the intersection. It then adds the new vehicle
  directly in front of that vehicle.
  */
-void Lane::insertVehicle(Vehicle v)
+void Lane::insertVehicle(Vehicle* v)
 {
-	cout << "Right turn? " << endl;
 	int index = -1;
 	
-	switch (v.getDirection())
+	switch (v->getDirection())
 	{
 		case Direction::north:
 			for (int i = 0; i < lane.size(); i++)
 			{
-				if (lane[i].getFrontYPos() <= length)
+				if (lane[i]->getFrontYPos() <= length)
 				{
 					index = i;
 					break;
@@ -113,7 +110,7 @@ void Lane::insertVehicle(Vehicle v)
 		case Direction::south:
 			for (int i = 0; i < lane.size(); i++)
 			{
-				if (lane[i].getFrontYPos() >= length + 2)
+				if (lane[i]->getFrontYPos() >= length + 2)
 				{
 					index = i;
 					break;
@@ -123,7 +120,7 @@ void Lane::insertVehicle(Vehicle v)
 		case Direction::east:
 			for (int i = 0; i < lane.size(); i++)
 			{
-				if (lane[i].getFrontXPos() <= length)
+				if (lane[i]->getFrontXPos() <= length)
 				{
 					index = i;
 					break;
@@ -133,7 +130,7 @@ void Lane::insertVehicle(Vehicle v)
 		case Direction::west:
 			for (int i = 0; i < lane.size(); i++)
 			{
-				if (lane[i].getFrontXPos() >= length + 2)
+				if (lane[i]->getFrontXPos() >= length + 2)
 				{
 					index = i;
 					break;
@@ -166,29 +163,29 @@ void Lane::removeVehicle()
 	{
 		return;
 	}
-	Vehicle first = lane[0];
-        switch(first.getDirection())
+	Vehicle* first = lane[0];
+        switch(first->getDirection())
 	{
 		case Direction::north:
-			if (first.getFrontYPos() > length*2 + 1)
+			if (first->getFrontYPos() > length*2 + 1)
 			{
 				lane.erase(lane.begin());
 			}
 			break;
 		case Direction::south:
-			if (first.getFrontYPos() < 0)
+			if (first->getFrontYPos() < 0)
 			{
 				lane.erase(lane.begin());
 			}
 			break;
 		case Direction::east:
-			if (first.getFrontXPos() > length*2 + 1)
+			if (first->getFrontXPos() > length*2 + 1)
 			{
 				lane.erase(lane.begin());
 			}
 			break;
 		case Direction::west:
-			if (first.getFrontXPos() < 0)
+			if (first->getFrontXPos() < 0)
 			{
 				lane.erase(lane.begin());
 			}
@@ -212,13 +209,13 @@ void Lane::removeVehicle(int i)
  the intersection is different depending on whether the vehicle is
  turning right or going straight.
  */
-bool Lane::crossSafely(Vehicle v, int t, int tyellow)
+bool Lane::crossSafely(Vehicle* v, int t, int tyellow)
 {
-	int size = v.getSize();
+	int size = v->getSize();
 	int tn = 0;
 	// Determines the number of time steps needed to 
 	// make it through the intersection
-	if (v.turnsRight())
+	if (v->turnsRight())
 	{
 		tn = 3;
 	}
@@ -228,21 +225,25 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
 	}
 	// If the light is yellow, the vehicle has until the 
 	// light changes to go through the intersection
-	if (light.getColor() == Color::yellow)
+	if (light->getColor() == Color::yellow)
 	{
-		if(tn < light.getTimeRemaining(t))
+		if(tn < light->getTimeRemaining(t))
 		{
 			return false;
 		}
 	}
 	// If the light is green, the vehicle has until the light turns 
 	// yellow plus the time that the light will be yellow
-	else if (light.getColor() == Color::green)
+	else if (light->getColor() == Color::green)
 	{
-		if (tn < light.getTimeRemaining(t) + tyellow)
+		if (tn < light->getTimeRemaining(t) + tyellow)
 		{
 			return false;
 		}
+	}
+	else if (light->getColor() == Color::red)
+	{
+		return false;
 	}
 	return true;
 }
@@ -252,62 +253,62 @@ bool Lane::crossSafely(Vehicle v, int t, int tyellow)
  It also checks if the light is green or yellow.
  */
 
-bool Lane::isSafeToMove(Vehicle v, int i, int t, int tyellow)
+bool Lane::isSafeToMove(Vehicle* v, int i, int t, int tyellow)
 {
 	if (i == 0)
 	{
 		return true;
 	}
-	Vehicle previous_vehicle = lane[i-1];
-	switch (previous_vehicle.getDirection())
+	Vehicle* previous_vehicle = lane[i-1];
+	switch (previous_vehicle->getDirection())
 	{
 		case Direction::north:
-			if (previous_vehicle.getBackYPos() - 1 == v.getFrontYPos())
+			if (previous_vehicle->getBackYPos() - 1 == v->getFrontYPos())
 			{
 				return false;
 			}
-			else if (v.getFrontYPos() == length-1)
+			else if (v->getFrontYPos() == length-1)
 			{
-				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
+				if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
 				{
 					return false;
 				}
 			}
 			break;			
 		case Direction::south:
-			if (previous_vehicle.getBackYPos() + 1 == v.getFrontYPos())
+			if (previous_vehicle->getBackYPos() + 1 == v->getFrontYPos())
 			{
 				return false;
 			}
-			else if (v.getFrontYPos() == length + 2)
+			else if (v->getFrontYPos() == length + 2)
 			{
-				if (!crossSafely(v,t, tyellow) or light.getColor() == Color::red)
+				if (!crossSafely(v,t, tyellow) or light->getColor() == Color::red)
 				{
 					return false;
 				}
 			}
 			break;
 		case Direction::east:
-			if (previous_vehicle.getBackXPos() - 1 == v.getFrontXPos())
+			if (previous_vehicle->getBackXPos() - 1 == v->getFrontXPos())
 			{
 				return false;
 			}
-			else if (v.getFrontXPos() == length-1)
+			else if (v->getFrontXPos() == length-1)
 			{
-				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
+				if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
 				{
 					return false;
 				}
 			}
 			break;
 		case Direction:: west:
-			if (previous_vehicle.getBackXPos() + 1 == v.getFrontXPos())
+			if (previous_vehicle->getBackXPos() + 1 == v->getFrontXPos())
 			{
 				return false;
 			}
-			else if (v.getFrontXPos() == length + 2)
+			else if (v->getFrontXPos() == length + 2)
 			{
-				if (!crossSafely(v, t, tyellow) or light.getColor() == Color::red)
+				if (!crossSafely(v, t, tyellow) or light->getColor() == Color::red)
 				{
 					return false;
 				}
@@ -328,67 +329,67 @@ vector<VehicleBase*> Lane::pointerLane()
 	{
 		return vp;
 	}
-	Vehicle v = lane[0];
-	vector<Vehicle>::iterator it;
+	Vehicle* v = lane[0];
+	vector<Vehicle*>::iterator it;
+	/*
 	VehicleBase n;
 	VehicleBase s;
 	VehicleBase e;
 	VehicleBase we;
 	int count = 0;
-	switch (v.getDirection())
+	*/
+	switch (v->getDirection())
 	{
 		case Direction::north:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
-				Vehicle w = *it;
-				n = VehicleBase(w.getVehicleType(), w.getDirection());
-				n.setIDNumber(count);
-				for (int j = w.getBackYPos(); j <= w.getFrontYPos(); j++)
+				Vehicle* w = *it;
+				//n = VehicleBase(w.getVehicleType(), w.getDirection());
+				//n.setIDNumber(count);
+				for (int j = w->getBackYPos(); j <= w->getFrontYPos(); j++)
 				{
-					vp[j] = &n;
-					cout << "North pointer lane" << endl;
-					cout << vp[j]->getVehicleID() << endl;
+					vp[j] = w;
 				}
-				count++;
+				//count++;
 			}
 			break;
 		case Direction::south:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{	
-				Vehicle w = *it;	
-				s = VehicleBase(w.getVehicleType(), w.getDirection());
-				s.setIDNumber(count);
-				for (int j = w.getFrontYPos(); j <= w.getBackYPos(); j++)
+				Vehicle* w = *it;	
+				//s = VehicleBase(w.getVehicleType(), w.getDirection());
+				//s.setIDNumber(count);
+				for (int j = w->getFrontYPos(); j <= w->getBackYPos(); j++)
 				{
-					vp[j] = &s;
+					vp[j] = w;
 				}
-				count++;
+				//count++;
 			}
 			break;
 		case Direction::east:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
-				Vehicle w = *it;
-				e = VehicleBase(w.getVehicleType(), w.getDirection());
-				e.setIDNumber(count);
-				for (int j = w.getBackXPos(); j <= w.getFrontXPos(); j++)
+				Vehicle* w = *it;
+				//e = VehicleBase(w.getVehicleType(), w.getDirection());
+				//e.setIDNumber(count);
+				for (int j = w->getBackXPos(); j <= w->getFrontXPos(); j++)
 				{
-					vp[j] = &e;
+					vp[j] = w;
 				}
-				count++;
+				//count++;
 			}
 			break;
 		case Direction::west:
 			for (it = lane.begin(); it != lane.end(); it++)
 			{
-				Vehicle w = *it;
-				we = VehicleBase(w.getVehicleType(), w.getDirection());
-				we.setIDNumber(count);
-				for (int j = w.getFrontXPos(); j <= w.getBackXPos(); j++)
+				Vehicle* w = *it;
+				//we = VehicleBase(w.getVehicleType(), w.getDirection());
+				//we.setIDNumber(count);
+				for (int j = w->getFrontXPos(); j <= w->getBackXPos(); j++)
 				{
-					vp[j] = &we;
+					vp[j] = w;
 				}
-				count++;
+				//count++;
 			}
 			break;
 	}
