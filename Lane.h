@@ -3,7 +3,7 @@
 
 #include "TrafficLight.h"
 #include "Vehicle.h"
-
+#include <algorithm>
 using namespace std;
 
 class Lane {

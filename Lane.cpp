@@ -365,6 +365,7 @@ vector<VehicleBase*> Lane::pointerLane()
 				}
 				//count++;
 			}
+			reverse(vp.begin(), vp.end());
 			break;
 		case Direction::east:
 			for (it = lane.begin(); it != lane.end(); it++)
@@ -391,6 +392,7 @@ vector<VehicleBase*> Lane::pointerLane()
 				}
 				//count++;
 			}
+			reverse(vp.begin(), vp.end());
 			break;
 	}
 	return vp;	
