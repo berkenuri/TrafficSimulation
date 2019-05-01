@@ -11,6 +11,7 @@
 #include <string>
 #include <array>
 #include <random>
+#include <cstring>
 
 using namespace std;
 
@@ -18,6 +19,17 @@ int main(int argc, char *argv[]) {
 
  	ifstream in; 
 	in.open(argv[1]);
+
+    bool autoadvance;
+
+    if(strcmp(argv[2], "true") == 0){
+        // proceed as normal
+        autoadvance = false;
+    }
+    else if(strcmp(argv[2], "false") == 0){
+        // go through the simulation without
+        autoadvance = true;
+    }
 	
     // If input file format is incorrect, let the user know 
     if(in.bad()) {
@@ -356,7 +368,7 @@ int main(int argc, char *argv[]) {
 
 	    cin.get(dummy);
 
-            t++;
+        t++;
         }      
     }
 
